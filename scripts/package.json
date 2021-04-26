@@ -1,0 +1,14 @@
+{
+  "name": "scripts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "faunadb": "^4.1.3"
+  },
+  "scripts": {
+    "setup": "node ./setup/index.js local"
+  },
+  "type": "module"
+}
