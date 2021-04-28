@@ -30,7 +30,7 @@ export default function Index() {
           ) : (
             <div className="inline-flex">
               <LinkButton
-                href="/api/auth/login"
+                href="/api/auth/login?returnTo=/new"
                 className="text-lg bg-gray-500 hover:bg-gray-600 text-white py-2 px-4"
               >
                 Login

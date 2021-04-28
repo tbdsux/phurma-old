@@ -12,10 +12,10 @@ async function setupDatabase() {
   }
 
   // create collection
-  const cols = await handleSetupError(createCollections(setupClient), 'user collection');
-  if (cols) {
-    await handleSetupError(createIndex(setupClient), 'user index', 'user index');
-  }
+  await handleSetupError(createCollections(setupClient), 'user collection');
+
+  // create user index
+  await handleSetupError(createIndex(setupClient), 'user index', 'user index');
 
   // create the role
   await executeFQL(setupClient, CreateNormalUserRole, 'normal user role');
