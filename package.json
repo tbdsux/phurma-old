@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "setup:db": "cd scripts && yarn setup"
+    "setup:db": "node scripts/setup/index.js",
+    "update": "yarn add next && yarn upgrade"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^1.3.0",
