@@ -1,44 +1,35 @@
 import { useUser } from '@auth0/nextjs-auth0';
 
-import Layout from '@components/Layout';
+import { PageLayout } from '@layouts/PageLayout';
 import { LinkButton } from '@components/shared/LinkButton';
+import { Container } from '@components/Container';
+import { Color } from '@components/shared/colorizer';
 
 export default function Index() {
   const { user } = useUser();
 
   return (
-    <Layout pageTitle="Home | Nextjs, FaunaDB and Auth0">
-      <div className="h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h3 className="text-6xl font-black tracking-wide mb-8">NextJS, FaunaDB w/ Auth0</h3>
-          <p className="text-2xl">start coding!</p>
+    <PageLayout pageTitle="phurma | Form Submission Using an API">
+      <section className="py-20 text-center">
+        <Container size="w-4/5">
+          <h2 className="text-5xl font-black tracking-wide">
+            Integrate <Color>Forms</Color> with an <Color>API</Color>
+          </h2>
+          <p className="py-8 text-xl tracking-wide">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni sit beatae molestiae
+            doloremque. Soluta rem odio, quo earum sint quia.
+          </p>
 
-          <hr className="my-8" />
-
-          {user ? (
-            <>
-              <div>{JSON.stringify(user)}</div>
-              <div className="mt-8">
-                <LinkButton
-                  href="/api/auth/logout"
-                  className="hover:underline p-2 bg-gray-500 text-white hover:bg-gray-600"
-                >
-                  Log Out
-                </LinkButton>
-              </div>
-            </>
-          ) : (
-            <div className="inline-flex">
-              <LinkButton
-                href="/api/auth/login?returnTo=/new"
-                className="text-lg bg-gray-500 hover:bg-gray-600 text-white py-2 px-4"
-              >
-                Login
-              </LinkButton>
-            </div>
-          )}
-        </div>
-      </div>
-    </Layout>
+          <div className="inline-flex mt-8">
+            <button className="mx-1 py-3 px-8 rounded-lg tracking-wide font-bold text-xl border-purple-500 border hover:text-purple-500">
+              Learn More
+            </button>
+            <button className="mx-1 py-3 px-8 rounded-lg tracking-wide font-bold text-xl border-purple-500 border hover:bg-purple-500 hover:text-white">
+              Sign Up
+            </button>
+          </div>
+        </Container>
+      </section>
+    </PageLayout>
   );
 }

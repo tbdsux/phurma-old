@@ -3,7 +3,7 @@ import Head from 'next/head';
 
 type LayoutProps = { pageTitle: string; children: ReactNode };
 
-const Layout = ({ pageTitle, children }: LayoutProps) => {
+const BaseLayout = ({ pageTitle, children }: LayoutProps) => {
   return (
     <>
       <Head>
@@ -12,9 +12,10 @@ const Layout = ({ pageTitle, children }: LayoutProps) => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
 
-      <main>{children}</main>
+      <main className="antialiased">{children}</main>
     </>
   );
 };
 
-export default Layout;
+export default BaseLayout;
+export type { LayoutProps };

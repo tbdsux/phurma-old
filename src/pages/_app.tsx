@@ -6,7 +6,7 @@ import '../styles/tailwind.css';
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <UserProvider>
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </UserProvider>
   );
 }

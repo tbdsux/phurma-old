@@ -1,8 +1,13 @@
+const colors = require('tailwindcss/colors');
+
 module.exports = {
   mode: 'jit',
-  purge: ['./src/pages/**/*.tsx', './src/components/**/*.tsx'],
+  purge: ['./src/**/*.tsx'],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    colors: {
+      ...colors
+    },
     fontFamily: {
       sans: ['"Inter"', 'sans-serif']
     },
