@@ -9,7 +9,7 @@ export const DashLayout = ({ pageTitle, children }: DashLayoutProps) => {
     <BaseLayout pageTitle={pageTitle}>
       <DashHeader />
 
-      {children}
+      <div className="py-10 w-2/3 mx-auto">{children}</div>
 
       <DashFooter />
     </BaseLayout>

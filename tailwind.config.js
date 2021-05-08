@@ -6,6 +6,7 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     colors: {
+      bland: 'rgba(0, 0, 0, 0.5)',
       ...colors
     },
     fontFamily: {

@@ -20,7 +20,8 @@
       "@utils/*": ["utils/*"],
       "@fauna/*": ["fauna/*"],
       "@middleware/*": ["middleware/*"],
-      "@layouts/*": ["layouts/*"]
+      "@layouts/*": ["layouts/*"],
+      "~types/*": ["types/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

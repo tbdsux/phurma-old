@@ -6,7 +6,7 @@ export const Header = () => {
     <header className="py-4">
       <Container size="w-11/12" className="flex items-center justify-between">
         <div>
-          <h1 className="font-black tracking-wide text-2xl">phurma</h1>
+          <h1 className="font-black tracking-wide text-2xl text-purple-500">phurma</h1>
         </div>
         <ul>
           <li>
