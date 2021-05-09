@@ -2,6 +2,7 @@ import { Listbox, Transition } from '@headlessui/react';
 import { DashLayout } from '@layouts/DashLayout';
 import React, { Fragment, useState } from 'react';
 import { SelectorIcon, CheckIcon } from '@heroicons/react/solid';
+import { withPageAuthRequired } from '@auth0/nextjs-auth0/dist/frontend';
 
 const viewSubmissionsMode = {
   all: 'All Submissions',
@@ -47,7 +48,7 @@ const sample = [
   }
 ];
 
-const FormPage = () => {
+const FormPage = withPageAuthRequired(() => {
   const [selectView, setSelectView] = useState(viewSubmissionsMode.all);
 
   const [selected, setSelected] = useState(sample[0]);
@@ -163,6 +164,6 @@ const FormPage = () => {
       </div>
     </DashLayout>
   );
-};
+});
 
 export default FormPage;

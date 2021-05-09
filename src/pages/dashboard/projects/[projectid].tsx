@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { DashLayout } from '@layouts/DashLayout';
 import { NewFormModal } from '@components/dashboard/modals/new-form';
+import { withPageAuthRequired } from '@auth0/nextjs-auth0/dist/frontend';
 
 const forms = [
   {
@@ -18,7 +19,7 @@ const forms = [
   }
 ];
 
-const ProjectPage = () => {
+const ProjectPage = withPageAuthRequired(() => {
   return (
     <DashLayout pageTitle="Project Page">
       <div>
@@ -47,6 +48,6 @@ const ProjectPage = () => {
       </div>
     </DashLayout>
   );
-};
+});
 
 export default ProjectPage;

@@ -1,3 +1,4 @@
+import { withPageAuthRequired } from '@auth0/nextjs-auth0/dist/frontend';
 import { DashLayout } from '@layouts/DashLayout';
 import Link from 'next/link';
 
@@ -13,7 +14,7 @@ const SampleProjects = [
   }
 ];
 
-const Dashboard = () => {
+const Dashboard = withPageAuthRequired(() => {
   return (
     <DashLayout pageTitle="Dashboard | phurma">
       <div className="">
@@ -38,6 +39,6 @@ const Dashboard = () => {
       </div>
     </DashLayout>
   );
-};
+});
 
 export default Dashboard;
