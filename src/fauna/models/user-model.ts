@@ -1,4 +1,5 @@
-import { adminClient, getClient, q } from '@lib/fauna';
+import { adminClient } from '@lib/fauna';
+import { AuthTokenByIndex } from '@ootiq/just-faunautils';
 
 type GetTokenRespProps = {
   ref: object;
@@ -7,21 +8,11 @@ type GetTokenRespProps = {
   secret: string;
 };
 
-export class UserModel {
-  async obtainFaunaDBToken(user) {
-    return adminClient
-      .query(
-        q.Create(q.Tokens(), {
-          instance: q.Select('ref', q.Get(q.Match(q.Index('user_by_id'), user)))
-        })
-      )
-      .then((res: GetTokenRespProps) => res?.secret) // return only the secret
-      .catch((e) => console.error(e));
-  }
+const ObtainUserToken = async (usersub: string): Promise<string | undefined> => {
+  return await adminClient
+    .query(AuthTokenByIndex('user_by_id', usersub))
+    .then((r: GetTokenRespProps) => r.secret)
+    .catch(() => undefined);
+};
 
-  async invalidateFaunaDBToken(token) {
-    await getClient(token)
-      .query(q.Logout(true))
-      .catch((e) => console.error(e));
-  }
-}
+export { ObtainUserToken };

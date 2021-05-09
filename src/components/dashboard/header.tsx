@@ -18,7 +18,7 @@ export const DashHeader = () => {
             <TextLink href="/dashboard/projects">Projects</TextLink>
           </li>
           <li className="ml-14">
-            <AnchorTextLink href="/api/auth/logout">Log Out</AnchorTextLink>
+            <AnchorTextLink href="/api/auth/logout?returnTo=/">Log Out</AnchorTextLink>
           </li>
         </ul>
       </header>

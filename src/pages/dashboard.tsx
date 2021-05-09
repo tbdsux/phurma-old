@@ -1,4 +1,4 @@
-import { withPageAuthRequired } from '@auth0/nextjs-auth0/dist/frontend';
+import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0/dist/frontend';
 import { DashLayout } from '@layouts/DashLayout';
 import Link from 'next/link';
 
@@ -15,6 +15,8 @@ const SampleProjects = [
 ];
 
 const Dashboard = withPageAuthRequired(() => {
+  const { user } = useUser();
+
   return (
     <DashLayout pageTitle="Dashboard | phurma">
       <div className="">

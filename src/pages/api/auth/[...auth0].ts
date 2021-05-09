@@ -1,5 +1,8 @@
 import { getSession, handleAuth, handleCallback, handleLogout } from '@auth0/nextjs-auth0';
-import { UserModel } from '@fauna/models/user-model';
+import { ObtainUserToken } from '@fauna/models/user-model';
+import { CreateUserIfNotExists } from '@lib/userExists';
+
+import { TokenLogout } from '@ootiq/just-faunautils';
 
 /* --> ALTERNATIVE w/out using Auth0 Rules
 const afterCallback = async (req: NextApiRequest, res: NextApiResponse, session, state) => {
@@ -12,11 +15,16 @@ const afterCallback = async (req: NextApiRequest, res: NextApiResponse, session,
 */
 
 const afterCallback = async (req, res, session, state) => {
-  const user = new UserModel();
-  const token = await user.obtainFaunaDBToken(session.user.sub);
+  return await CreateUserIfNotExists(session.user).then(async () => {
+    const token = await ObtainUserToken(session.user.sub);
 
-  session.user.token = token;
-  return session;
+    if (!token) {
+      throw new Error('There was a problem during authentication.');
+    }
+
+    session.user.token = token;
+    return session;
+  });
 };
 
 export default handleAuth({
@@ -32,9 +40,7 @@ export default handleAuth({
       // NOTE: I am not sure about this process, if this is right
       // invalidate token first
       const { user } = getSession(req, res);
-      const u = new UserModel();
-
-      await u.invalidateFaunaDBToken(user.token);
+      await TokenLogout(user.token, true);
 
       // then, logout
       await handleLogout(req, res);
