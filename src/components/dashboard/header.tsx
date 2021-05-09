@@ -2,6 +2,7 @@ import React, { Fragment, useRef, useState } from 'react';
 import { ColorButton } from '@components/shared/button';
 import { AnchorTextLink, TextLink } from './textlink';
 import { Transition, Dialog } from '@headlessui/react';
+import { DocumentAddIcon } from '@heroicons/react/outline';
 
 export const DashHeader = () => {
   const [newProjectModal, setNewProjectModal] = useState(false);
@@ -30,7 +31,11 @@ export const DashHeader = () => {
         </div>
         <ul className="flex items-center justify-between">
           <li>
-            <ColorButton onClick={openProjectModal} className="py-2 px-4 rounded-lg tracking-wide">
+            <ColorButton
+              onClick={openProjectModal}
+              className="py-2 px-4 rounded-lg tracking-wide text-sm inline-flex items-center"
+            >
+              <DocumentAddIcon className="h-5 w-5 mr-1" />
               New Project
             </ColorButton>
           </li>
