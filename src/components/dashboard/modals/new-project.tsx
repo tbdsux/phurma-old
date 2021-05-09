@@ -2,10 +2,12 @@ import React, { Fragment, useRef, useState } from 'react';
 import { ColorButton } from '@components/shared/button';
 import { Transition, Dialog } from '@headlessui/react';
 import { DocumentAddIcon } from '@heroicons/react/outline';
+import { usePostFetch } from '@lib/fetch';
 
 export const NewProjectModal = () => {
   const [newProjectModal, setNewProjectModal] = useState(false);
 
+  const inputProjectNameRef = useRef<HTMLInputElement>();
   const createProjectBtn = useRef<HTMLButtonElement>();
 
   const closeProjectModal = () => {
@@ -19,6 +21,19 @@ export const NewProjectModal = () => {
   const HandleCreateProject = () => {
     createProjectBtn.current.disabled = true;
     createProjectBtn.current.innerHTML = 'Creating Project...';
+
+    const projectname = inputProjectNameRef.current.value;
+
+    usePostFetch('/api/user/projects/create', {
+      name: projectname
+    })
+      .then((r) => r.json())
+      .then((d) => {
+        console.log(d);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
   };
 
   return (
@@ -29,6 +44,7 @@ export const NewProjectModal = () => {
           className="fixed inset-0 z-10 overflow-y-auto bg-bland"
           static
           open={newProjectModal}
+          initialFocus={inputProjectNameRef}
           onClose={closeProjectModal}
         >
           <div className="min-h-screen px-4 text-center">
@@ -70,6 +86,7 @@ export const NewProjectModal = () => {
                       Enter your project's name
                     </label>
                     <input
+                      ref={inputProjectNameRef}
                       type="text"
                       name="project-name"
                       id="input-project-name"

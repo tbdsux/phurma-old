@@ -1,5 +1,7 @@
+import { getSession } from '@auth0/nextjs-auth0';
 import { adminClient } from '@lib/fauna';
 import { AuthTokenByIndex } from '@ootiq/just-faunautils';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 type GetTokenRespProps = {
   ref: object;
@@ -15,4 +17,9 @@ const ObtainUserToken = async (usersub: string): Promise<string | undefined> => 
     .catch(() => undefined);
 };
 
-export { ObtainUserToken };
+const getUserToken = (req: NextApiRequest, res: NextApiResponse): string => {
+  const { user } = getSession(req, res);
+  return user.token;
+};
+
+export { ObtainUserToken, getUserToken };
