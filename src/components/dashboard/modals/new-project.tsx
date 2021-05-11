@@ -3,6 +3,9 @@ import { ColorButton } from '@components/shared/button';
 import { Transition, Dialog } from '@headlessui/react';
 import { DocumentAddIcon } from '@heroicons/react/outline';
 import { usePostFetch } from '@lib/fetch';
+import { QueryManager } from '~types/query';
+import { ProjectProps } from '~types/projects';
+import Router from 'next/router';
 
 export const NewProjectModal = () => {
   const [newProjectModal, setNewProjectModal] = useState(false);
@@ -28,8 +31,8 @@ export const NewProjectModal = () => {
       name: projectname
     })
       .then((r) => r.json())
-      .then((d) => {
-        console.log(d);
+      .then((d: QueryManager<ProjectProps>) => {
+        Router.push(`/dashboard/projects/${d.data.id}`);
       })
       .catch((e) => {
         console.error(e);
