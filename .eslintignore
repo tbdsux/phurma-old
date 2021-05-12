@@ -1,0 +1,22 @@
+# tailwind config
+tailwind.config.js
+
+# prettier
+!.prettierrc
+
+# fauna-queries
+fauna-queries
+
+# scripts & utils (outside src)
+scripts
+utils
+
+# public
+public
+
+# nextjs
+.next
+.out
+
+# node
+node_modules
