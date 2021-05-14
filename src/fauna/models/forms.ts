@@ -12,9 +12,17 @@ import {
   Ref,
   Select,
   Update,
-  Var
+  Var,
+  Map,
+  Lambda,
+  Paginate,
+  Match,
+  Index,
+  Equals,
+  If
 } from 'faunadb';
-import { FormProps } from '~types/forms';
+import { FormProps, FormPropsById } from '~types/forms';
+import { QueryManager } from '~types/query';
 import { BaseModel } from './base-model';
 
 export class FormsModel extends BaseModel {
@@ -51,6 +59,52 @@ export class FormsModel extends BaseModel {
         )
       )
       .then((r: FaunaResponseProps<FormProps>) => getQuery(r.data))
+      .catch((e) => getQueryError(e));
+  }
+
+  // fetch the form and the responses
+  async FetchFormById(projectid: string, formid: string): Promise<QueryManager<FormPropsById>> {
+    return this._client
+      .query(
+        Let(
+          {
+            formDoc: Get(Match(Index('forms_by_id'), formid)),
+            projectDoc: Get(Match(Index('projects_by_id'), projectid)),
+            owner: Select(['data', 'owner'], Var('formDoc')),
+            formRef: Select(['ref'], Var('formDoc'))
+          },
+          If(
+            Equals(CurrentIdentity(), Var('owner')),
+            {
+              ref: Var('formRef'),
+              project: {
+                name: Select(['data', 'name'], Var('projectDoc')),
+                id: Select(['data', 'id'], Var('projectDoc'))
+              },
+              form: Select(['data'], Var('formDoc')),
+              responses: Select(
+                ['data'],
+                Map(
+                  Paginate(Match(Index('responses_by_formRef'), Var('formRef'))),
+                  Lambda(['date', 'responseRef'], Get(Var('responseRef')))
+                )
+              )
+            },
+            null
+          )
+        )
+      )
+      .then((r: FormPropsById | null) => {
+        if (!r) {
+          return {
+            error: true,
+            code: 404,
+            desription: 'Form Not Found!'
+          };
+        }
+
+        return getQuery(r);
+      })
       .catch((e) => getQueryError(e));
   }
 }

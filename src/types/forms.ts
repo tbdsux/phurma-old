@@ -1,5 +1,7 @@
+import { FaunaResponseProps } from '@ootiq/just-faunautils';
 import { Expr } from 'faunadb';
 import Joi from 'joi';
+import { ResponseProps } from './response';
 
 // main form info props
 interface FormProps {
@@ -8,7 +10,17 @@ interface FormProps {
   name: string;
   description: string;
   owner?: Expr;
-  responseRefs?: Expr[];
+}
+
+// for fetching specific formid
+interface FormPropsById {
+  ref: Expr;
+  project: {
+    name: string;
+    id: string;
+  };
+  form: FormProps;
+  responses: FaunaResponseProps<ResponseProps>[];
 }
 
 const FormPropsSchema = Joi.object({
@@ -17,5 +29,5 @@ const FormPropsSchema = Joi.object({
   description: Joi.string().min(3).required()
 });
 
-export type { FormProps };
+export type { FormProps, FormPropsById };
 export { FormPropsSchema };

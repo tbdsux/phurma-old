@@ -19,7 +19,7 @@ const ProjectPage = withPageAuthRequired(() => {
   );
 
   return (
-    <DashLayout pageTitle="Project Page">
+    <DashLayout pageTitle={project ? project.data.name : 'Loading project...'}>
       <div>
         {project && (
           <>
