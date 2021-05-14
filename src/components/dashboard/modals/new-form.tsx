@@ -1,8 +1,20 @@
 import { Transition, Dialog } from '@headlessui/react';
+import { apiPostFetch } from '@lib/fetch';
+import Router from 'next/router';
 import React, { Fragment, useRef, useState } from 'react';
+import { FormProps } from '~types/forms';
+import { QueryManager } from '~types/query';
 
-export const NewFormModal = () => {
+type NewFormModalProps = {
+  projectid: string;
+  projectKeyId: string;
+};
+
+export const NewFormModal = ({ projectid, projectKeyId }: NewFormModalProps) => {
   const [newFormModal, setNewFormModal] = useState(false);
+
+  const formNameInput = useRef<HTMLInputElement>();
+  const formDescriptionInput = useRef<HTMLInputElement>();
 
   const createFormBtn = useRef<HTMLButtonElement>();
 
@@ -13,7 +25,21 @@ export const NewFormModal = () => {
     setNewFormModal(false);
   };
 
-  const handleCreateForm = () => {};
+  const handleCreateForm = () => {
+    const name = formNameInput.current.value;
+    const description = formDescriptionInput.current.value;
+
+    apiPostFetch('/api/user/projects/forms/create', {
+      name,
+      description,
+      projectid
+    })
+      .then((r) => r.json())
+      .then((d: QueryManager<FormProps>) => {
+        Router.push(`/dashboard/projects/${projectKeyId}/${d.data.id}`);
+      })
+      .catch((e) => console.error(e));
+  };
 
   return (
     <>
@@ -62,9 +88,10 @@ export const NewFormModal = () => {
                   <div>
                     <div className="flex flex-col">
                       <label htmlFor="project-name" className="mb-1 text-gray-600">
-                        Enter your form's name
+                        Enter your form&apos;s name
                       </label>
                       <input
+                        ref={formNameInput}
                         type="text"
                         name="project-name"
                         id="input-project-name"
@@ -77,6 +104,7 @@ export const NewFormModal = () => {
                         Description for your form
                       </label>
                       <input
+                        ref={formDescriptionInput}
                         type="text"
                         name="project-description"
                         id="input-project-description"

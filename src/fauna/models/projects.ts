@@ -1,7 +1,21 @@
 import { getQuery, getQueryError } from '@fauna/query';
 import { CreateData, FaunaResponseProps, getClient } from '@ootiq/just-faunautils';
-import { Client, CurrentIdentity, Get, Lambda, Map, Match, Paginate, Var, Index } from 'faunadb';
-import { ProjectProps } from '~types/projects';
+import {
+  Client,
+  CurrentIdentity,
+  Get,
+  Lambda,
+  Map,
+  Match,
+  Paginate,
+  Var,
+  Index,
+  Let,
+  Select,
+  If,
+  Equals
+} from 'faunadb';
+import { ProjectByIdProps, ProjectProps } from '~types/projects';
 import { QueryManager } from '~types/query';
 
 export class ProjectModel {
@@ -17,6 +31,7 @@ export class ProjectModel {
       .query(
         CreateData('projects', {
           owner: CurrentIdentity(),
+          formRefs: [],
           ...data
         })
       )
@@ -34,6 +49,50 @@ export class ProjectModel {
         )
       )
       .then((r: FaunaResponseProps<FaunaResponseProps<ProjectProps>[]>) => getQuery(r.data))
+      .catch((e) => getQueryError(e));
+  }
+
+  // for fetching project by id
+  async FetchProjectById(projectId: string): Promise<QueryManager<ProjectByIdProps>> {
+    return this._client
+      .query(
+        Let(
+          {
+            project: Get(Match(Index('projects_by_id'), projectId))
+          },
+          If(
+            Equals(Select(['data', 'owner'], Var('project')), CurrentIdentity()),
+            {
+              ref: Select(['ref'], Var('project')),
+              id: Select(['data', 'id'], Var('project')),
+              name: Select(['data', 'name'], Var('project')),
+              createdDate: Select(['data', 'createdDate'], Var('project')),
+              forms: Map(
+                Select(['data', 'formRefs'], Var('project')),
+                Lambda('form', Get(Var('form')))
+              )
+            },
+            {
+              ref: {},
+              id: '',
+              name: '',
+              createdDate: '',
+              forms: []
+            }
+          )
+        )
+      )
+      .then((r: ProjectByIdProps) => {
+        if (!r.name) {
+          return {
+            error: true,
+            code: 404,
+            description: 'Not Found'
+          };
+        }
+
+        return getQuery(r);
+      })
       .catch((e) => getQueryError(e));
   }
 }

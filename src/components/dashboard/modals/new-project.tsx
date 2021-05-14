@@ -2,7 +2,7 @@ import React, { Fragment, useRef, useState } from 'react';
 import { ColorButton } from '@components/shared/button';
 import { Transition, Dialog } from '@headlessui/react';
 import { DocumentAddIcon } from '@heroicons/react/outline';
-import { usePostFetch } from '@lib/fetch';
+import { apiPostFetch } from '@lib/fetch';
 import { QueryManager } from '~types/query';
 import { ProjectProps } from '~types/projects';
 import Router from 'next/router';
@@ -27,7 +27,7 @@ export const NewProjectModal = () => {
 
     const projectname = inputProjectNameRef.current.value;
 
-    usePostFetch('/api/user/projects/create', {
+    apiPostFetch('/api/user/projects/create', {
       name: projectname
     })
       .then((r) => r.json())
@@ -86,7 +86,7 @@ export const NewProjectModal = () => {
                 <div className="mt-4">
                   <div className="flex flex-col">
                     <label htmlFor="project-name" className="mb-1 text-gray-600">
-                      Enter your project's name
+                      Enter your project&apos;s name
                     </label>
                     <input
                       ref={inputProjectNameRef}
