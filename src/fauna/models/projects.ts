@@ -72,18 +72,12 @@ export class ProjectModel {
                 Lambda('form', Get(Var('form')))
               )
             },
-            {
-              ref: {},
-              id: '',
-              name: '',
-              createdDate: '',
-              forms: []
-            }
+            null
           )
         )
       )
-      .then((r: ProjectByIdProps) => {
-        if (!r.name) {
+      .then((r: ProjectByIdProps | null) => {
+        if (!r) {
           return {
             error: true,
             code: 404,
