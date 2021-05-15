@@ -11,6 +11,8 @@ import { FormPropsById } from '~types/forms';
 import { ResponseProps } from '~types/response';
 import { FaunaResponseProps } from '@ootiq/just-faunautils';
 
+import Error from 'next/error';
+
 // view mode for submissions
 const viewSubmissionsMode = {
   all: 'All Submissions',
@@ -35,6 +37,12 @@ const FormPage = withPageAuthRequired(() => {
   const { data: form } = useSWR<QueryManager<FormPropsById>>(
     formid && `/api/user/projects/forms/${projectid}/${formid}`
   );
+
+  if (form) {
+    if (form.error) {
+      return <Error statusCode={form.code} />;
+    }
+  }
 
   return (
     <DashLayout pageTitle={form ? form.data.form.name : 'Loading form...'}>
@@ -130,7 +138,7 @@ const FormPage = withPageAuthRequired(() => {
                       }`}
                     >
                       <p className="line-clamp-2 tracking-wide text-gray-700">
-                        {stringJson(submission)}
+                        {stringJson(submission.data.data)}
                       </p>
                     </li>
                     <hr />
@@ -140,7 +148,7 @@ const FormPage = withPageAuthRequired(() => {
             </div>
             <div className="col-span-3 p-6 overflow-y-auto">
               {selected &&
-                Object.entries(selected.data).map(([key, value], index) => (
+                Object.entries(selected.data.data).map(([key, value], index) => (
                   <div key={index} className="my-4">
                     <span className="text-sm tracking-wide bg-gray-200 p-1 rounded-md text-gray-800">
                       {key}

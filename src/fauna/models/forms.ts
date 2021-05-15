@@ -85,7 +85,7 @@ export class FormsModel extends BaseModel {
               responses: Select(
                 ['data'],
                 Map(
-                  Paginate(Match(Index('responses_by_formRef'), Var('formRef'))),
+                  Paginate(Match(Index('responses_by_formid'), formid)),
                   Lambda(['date', 'responseRef'], Get(Var('responseRef')))
                 )
               )
