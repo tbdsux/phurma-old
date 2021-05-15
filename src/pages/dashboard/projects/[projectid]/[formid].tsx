@@ -44,6 +44,11 @@ const FormPage = withPageAuthRequired(() => {
             {form.data.project.name} {'>'} {form.data.form.name}
           </p>
 
+          <p className="text-gray-600 mt-6 mb-4">
+            You form&apos;s project api url is{' '}
+            <strong>{`${process.env.NEXT_PUBLIC_WEBSITE}/api/${form.data.form.id}`}</strong>
+          </p>
+
           <div className="mt-8 mb-3 flex items-center justify-between">
             <h4 className="text-xl font-bold tracking-wide">{form.data.form.name}</h4>
             <div className="w-72">

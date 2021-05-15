@@ -27,7 +27,7 @@ const createNewForm = async (
 
   const data: FormProps = {
     createdDate: new Date().toISOString(),
-    id: nanoid(30),
+    id: nanoid(8),
     ...body[1]
   };
 

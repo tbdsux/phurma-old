@@ -1,8 +1,7 @@
 import { DataProps } from '@ootiq/just-faunautils/lib/utils';
-import { Expr } from 'faunadb';
 
 interface ResponseProps {
-  formRef: Expr;
+  formid: string;
   id: string;
   data: DataProps;
 }
