@@ -25,8 +25,8 @@ interface FormPropsById {
 
 const FormPropsSchema = Joi.object({
   name: Joi.string().min(3).required(),
-  projectid: Joi.string().required(),
-  description: Joi.string().min(3).required()
+  projectid: Joi.string().required(), // this is added automatically by the ui
+  description: Joi.string().allow('')
 });
 
 export type { FormProps, FormPropsById };

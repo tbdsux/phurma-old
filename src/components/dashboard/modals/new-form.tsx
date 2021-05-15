@@ -29,6 +29,9 @@ export const NewFormModal = ({ projectid, projectKeyId }: NewFormModalProps) => 
     const name = formNameInput.current.value;
     const description = formDescriptionInput.current.value;
 
+    createFormBtn.current.innerHTML = 'Creating Form...';
+    createFormBtn.current.disabled = true;
+
     apiPostFetch('/api/user/projects/forms/create', {
       name,
       description,
