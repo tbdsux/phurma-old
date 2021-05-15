@@ -4,6 +4,7 @@ interface ResponseProps {
   formid: string;
   id: string;
   data: DataProps;
+  createdDate: string;
 }
 
 export type { ResponseProps };

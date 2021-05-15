@@ -20,7 +20,8 @@ const formApiBackend = async (req: NextApiRequest, res: NextApiResponse) => {
   const newData: ResponseProps = {
     data: data,
     id: nanoid(20),
-    formid: joinString(formid)
+    formid: joinString(formid),
+    createdDate: new Date().toISOString()
   };
 
   const p = new ResponsesModel();
