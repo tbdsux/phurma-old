@@ -13,9 +13,12 @@ import {
   Let,
   Select,
   If,
-  Equals
+  Equals,
+  Update,
+  Ref,
+  Collection
 } from 'faunadb';
-import { ProjectByIdProps, ProjectProps } from '~types/projects';
+import { BaseProjectProps, ProjectByIdProps, ProjectProps } from '~types/projects';
 import { QueryManager } from '~types/query';
 
 export class ProjectModel {
@@ -87,6 +90,21 @@ export class ProjectModel {
 
         return getQuery(r);
       })
+      .catch((e) => getQueryError(e));
+  }
+
+  // for updating the project
+  // use BaseProjectProps for now, if there are new fields, change this
+  async UpdateProject(data: BaseProjectProps, projectRefId: string) {
+    return this._client
+      .query(
+        Update(Ref(Collection('projects'), projectRefId), {
+          data: {
+            ...data
+          }
+        })
+      )
+      .then((r: FaunaResponseProps<ProjectProps>) => getQuery(r.data))
       .catch((e) => getQueryError(e));
   }
 }

@@ -3,16 +3,11 @@ import { ProjectModel } from '@fauna/models/projects';
 import { getUserToken } from '@fauna/models/user-model';
 import { parseBodyData } from '@lib/parse-body';
 import methodHandler from '@middleware/methods';
-import { nanoid } from 'nanoid';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { ProjectProps, CreateProjectPropsSchema } from '~types/projects';
-import { QueryManager } from '~types/query';
+import { BaseProjectProps, UpdateProjectPropsSchema } from '~types/projects';
 
-const createNewProject = async (
-  req: NextApiRequest,
-  res: NextApiResponse<QueryManager<ProjectProps>>
-) => {
-  const body = await parseBodyData(req, CreateProjectPropsSchema);
+const updateProject = async (req: NextApiRequest, res: NextApiResponse) => {
+  const body = await parseBodyData(req, UpdateProjectPropsSchema);
 
   if (!body[0]) {
     res.status(400).json({
@@ -25,16 +20,14 @@ const createNewProject = async (
 
   const token = getUserToken(req, res);
 
-  const data: ProjectProps = {
-    createdDate: new Date().toISOString(),
-    id: nanoid(25),
-    ...body[1]
+  const data: BaseProjectProps = {
+    name: body[1].name
   };
 
   const p = new ProjectModel(token);
-  const q = await p.CreateNewProject(data);
+  const q = await p.UpdateProject(data, body[1].refid);
 
   res.status(q.code).json(q);
 };
 
-export default methodHandler(withApiAuthRequired(createNewProject), ['PUT', 'POST']);
+export default methodHandler(withApiAuthRequired(updateProject), ['POST', 'PUT']);

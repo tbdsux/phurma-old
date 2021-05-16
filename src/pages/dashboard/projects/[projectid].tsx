@@ -1,12 +1,12 @@
 import Link from 'next/link';
 
 import { DashLayout } from '@layouts/DashLayout';
-import { NewFormModal } from '@components/dashboard/modals/new-form';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0/dist/frontend';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import { QueryManager } from '~types/query';
 import { ProjectByIdProps } from '~types/projects';
+import { ProjectHeader } from '@components/dashboard/project-header';
 import { joinString } from '@lib/utils';
 
 const ProjectPage = withPageAuthRequired(() => {
@@ -23,13 +23,11 @@ const ProjectPage = withPageAuthRequired(() => {
       <div>
         {project && (
           <>
-            <div className="flex items-center justify-between">
-              <h3 className="text-xl font-bold text-gray-500">{project.data.name}</h3>
-              <NewFormModal
-                projectid={project.data.ref['@ref'].id}
-                projectKeyId={joinString(projectid)}
-              />
-            </div>
+            <ProjectHeader
+              name={project.data.name}
+              refid={project.data.ref['@ref'].id}
+              id={joinString(projectid)}
+            />
 
             <div className="mt-8 w-11/12 mx-auto">
               <ul className="flex flex-col">

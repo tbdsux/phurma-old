@@ -3,10 +3,13 @@ import { Expr } from 'faunadb';
 import Joi from 'joi';
 import { FormProps } from './forms';
 
-// main project info props
-interface ProjectProps {
-  id: string; // nanoid
+interface BaseProjectProps {
   name: string;
+}
+
+// main project info props
+interface ProjectProps extends BaseProjectProps {
+  id: string; // nanoid
   createdDate: string;
   formRefs: Expr[];
   owner?: Expr;
@@ -21,9 +24,17 @@ interface ProjectByIdProps {
   forms: FaunaResponseProps<FormProps>[];
 }
 
-const ProjectPropsSchema = Joi.object({
+interface ProjectSchemaProps extends BaseProjectProps {
+  refid?: string;
+}
+const ProjectsSchema = Joi.object<ProjectSchemaProps>().keys({
   name: Joi.string().min(3).required()
 });
 
-export type { ProjectProps, ProjectByIdProps };
-export { ProjectPropsSchema };
+const CreateProjectPropsSchema = ProjectsSchema.keys();
+const UpdateProjectPropsSchema = ProjectsSchema.keys({
+  refid: Joi.string().required()
+});
+
+export type { ProjectProps, ProjectByIdProps, BaseProjectProps };
+export { CreateProjectPropsSchema, UpdateProjectPropsSchema };
