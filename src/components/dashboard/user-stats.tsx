@@ -8,7 +8,7 @@ export const UserStats = () => {
   if (!stats) return <p className="mt-8">Loading...</p>;
 
   return (
-    <div>
+    <div className="my-12">
       <p className="text-gray-500 tracking-wider">My Statistics: </p>
       <section className="mt-4 grid grid-cols-2 gap-8">
         <div className="rounded-lg p-6 border border-purple-300">
