@@ -8,6 +8,7 @@ import { QueryManager } from '~types/query';
 import { ProjectByIdProps } from '~types/projects';
 import { ProjectHeader } from '@components/dashboard/project-header';
 import { joinString } from '@lib/utils';
+import { PageCrumbs } from '@components/dashboard/page-crumbs';
 
 const ProjectPage = withPageAuthRequired(() => {
   const router = useRouter();
@@ -23,6 +24,13 @@ const ProjectPage = withPageAuthRequired(() => {
       <div>
         {project && (
           <>
+            <PageCrumbs
+              links={[
+                { text: 'projects', href: '/dashboard/projects' },
+                { text: project.data.name, href: `/dashboard/projects/${projectid}` }
+              ]}
+            />
+
             <ProjectHeader
               name={project.data.name}
               refid={project.data.ref['@ref'].id}

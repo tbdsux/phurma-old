@@ -12,6 +12,7 @@ import { ResponseProps } from '~types/response';
 import { FaunaResponseProps } from '@ootiq/just-faunautils';
 
 import Error from 'next/error';
+import { PageCrumbs } from '@components/dashboard/page-crumbs';
 
 // view mode for submissions
 const viewSubmissionsMode = {
@@ -48,9 +49,23 @@ const FormPage = withPageAuthRequired(() => {
     <DashLayout pageTitle={form ? form.data.form.name : 'Loading form...'}>
       {form && (
         <div>
-          <p className="text-sm text-gray-500 tracking-wide">
-            {form.data.project.name} {'>'} {form.data.form.name}
-          </p>
+          <PageCrumbs
+            links={[
+              { text: 'projects', href: '/dashboard/projects' },
+              { text: form.data.project.name, href: `/dashboard/projects/${projectid}` },
+              { text: form.data.form.name, href: `/dashboard/projects/${projectid}/${formid}` }
+            ]}
+          />
+
+          {/* <p className="text-sm text-gray-500 tracking-wide">
+            <Link href={`/dashboard/projects/${projectid}`}>
+              <a>{form.data.project.name}</a>
+            </Link>{' '}
+            {'>'}{' '}
+            <Link href={`/dashboard/projects/${projectid}/${formid}`}>
+              <a>{form.data.form.name}</a>
+            </Link>
+          </p> */}
 
           <p className="text-gray-600 mt-6 mb-4">
             You form&apos;s project api url is{' '}
