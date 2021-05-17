@@ -7,13 +7,13 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 8
   },
-  extends: ['eslint:recommended', 'plugin:cypress/recommended'],
+  extends: ['eslint:recommended'],
   rules: {
     'no-console': 'off'
   },
   overrides: [
     {
-      files: ['src/**/*.ts', 'src/**/*.tsx'],
+      files: ['src/**/*.ts', 'src/**/*.tsx', 'cypress/**/*.ts'],
       parser: '@typescript-eslint/parser',
       settings: {
         react: {
@@ -32,7 +32,8 @@ module.exports = {
         'plugin:react/recommended',
         'plugin:react-hooks/recommended',
         // 'plugin:jsx-a11y/recommended',
-        'plugin:prettier/recommended'
+        'plugin:prettier/recommended',
+        'plugin:cypress/recommended'
       ],
       rules: {
         'prettier/prettier': ['error', {}, { usePrettierrc: true }],
