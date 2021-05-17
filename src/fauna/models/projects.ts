@@ -16,7 +16,8 @@ import {
   Equals,
   Update,
   Ref,
-  Collection
+  Collection,
+  Reverse
 } from 'faunadb';
 import { BaseProjectProps, ProjectByIdProps, ProjectProps } from '~types/projects';
 import { QueryManager } from '~types/query';
@@ -70,9 +71,8 @@ export class ProjectModel {
               id: Select(['data', 'id'], Var('project')),
               name: Select(['data', 'name'], Var('project')),
               createdDate: Select(['data', 'createdDate'], Var('project')),
-              forms: Map(
-                Select(['data', 'formRefs'], Var('project')),
-                Lambda('form', Get(Var('form')))
+              forms: Reverse(
+                Map(Select(['data', 'formRefs'], Var('project')), Lambda('form', Get(Var('form'))))
               )
             },
             null
