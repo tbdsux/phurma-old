@@ -25,7 +25,7 @@ const formApiBackend = async (req: NextApiRequest, res: NextApiResponse) => {
   };
 
   const p = new ResponsesModel();
-  const q = await p.NewResponse(newData);
+  const q = await p.NewResponse(joinString(formid), newData);
 
   res
     .status(q.code)
