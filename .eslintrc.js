@@ -13,7 +13,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['src/**/*.ts', 'src/**/*.tsx', 'cypress/**/*.ts'],
+      files: ['src/**/*.ts', 'src/**/*.tsx'],
       parser: '@typescript-eslint/parser',
       settings: {
         react: {
@@ -32,8 +32,7 @@ module.exports = {
         'plugin:react/recommended',
         'plugin:react-hooks/recommended',
         // 'plugin:jsx-a11y/recommended',
-        'plugin:prettier/recommended',
-        'plugin:cypress/recommended'
+        'plugin:prettier/recommended'
       ],
       rules: {
         'prettier/prettier': ['error', {}, { usePrettierrc: true }],
@@ -50,6 +49,10 @@ module.exports = {
         //   }
         // ]
       }
+    },
+    {
+      files: ['cypress/**/*.ts'],
+      plugins: ['plugin:cypress/recommended']
     }
   ]
 };
