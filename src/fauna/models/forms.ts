@@ -21,7 +21,7 @@ import {
   Equals,
   If
 } from 'faunadb';
-import { FormProps, FormPropsById } from '~types/forms';
+import { BaseFormProps, FormProps, FormPropsById } from '~types/forms';
 import { QueryManager } from '~types/query';
 import { BaseModel } from './base-model';
 
@@ -106,5 +106,13 @@ export class FormsModel extends BaseModel {
         return getQuery(r);
       })
       .catch((e) => getQueryError(e));
+  }
+
+  /* for updating form */
+  async UpdateForm(data: BaseFormProps, formid: string) {
+    return this._client
+      .query(Update(Ref(Collection('forms'), formid), data))
+      .then((r) => console.log(r))
+      .catch((e) => console.error(e));
   }
 }

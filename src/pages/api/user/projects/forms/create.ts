@@ -5,14 +5,14 @@ import { parseBodyData } from '@lib/parse-body';
 import methodHandler from '@middleware/methods';
 import { nanoid } from 'nanoid';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { FormProps, FormPropsSchema } from '~types/forms';
+import { FormProps, CreateFormPropsSchema } from '~types/forms';
 import { QueryManager } from '~types/query';
 
 const createNewForm = async (
   req: NextApiRequest,
   res: NextApiResponse<QueryManager<FormProps>>
 ) => {
-  const body = await parseBodyData(req, FormPropsSchema);
+  const body = await parseBodyData(req, CreateFormPropsSchema);
 
   if (!body[0]) {
     res.status(400).json({
