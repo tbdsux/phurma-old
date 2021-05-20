@@ -43,7 +43,7 @@ export const RenameFormModal = ({ projectid, form, formRefId }: RenameFormModalP
       body.description = description;
     }
 
-    btnCreateForm.current.innerHTML = 'Creating Form...';
+    btnCreateForm.current.innerHTML = 'Updating Form...';
     btnCreateForm.current.disabled = true;
 
     apiPostFetch('/api/user/projects/forms/update', {

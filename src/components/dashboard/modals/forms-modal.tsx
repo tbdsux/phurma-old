@@ -33,11 +33,14 @@ export const FormsModal = ({
 }: FormsModalProps) => {
   return (
     <div>
-      <BaseModal open={open} onClose={onClose} focusRef={initialFocus} width="max-w-2xl">
-        <Dialog.Title as="h3" className="text-xl font-black tracking-wide leading-6 text-gray-700">
+      <BaseModal open={open} onClose={onClose} focusRef={initialFocus} width="max-w-xl">
+        <Dialog.Title
+          as="h3"
+          className="underline text-lg font-black tracking-wide leading-6 text-gray-700"
+        >
           {dialogTitle}
         </Dialog.Title>
-        <div className="mt-4 mx-4">
+        <div className="mt-2 mx-4">
           <div>
             <div className="flex flex-col">
               <label htmlFor="project-name" className="mb-1 text-gray-600">
@@ -53,7 +56,7 @@ export const FormsModal = ({
                 placeholder="What is your project's name?"
               />
             </div>
-            <div className="flex flex-col mt-3">
+            <div className="flex flex-col mt-1">
               <label htmlFor="project-description" className="mb-1 text-gray-600 text-sm">
                 Description for your form
               </label>
@@ -69,7 +72,7 @@ export const FormsModal = ({
             </div>
           </div>
 
-          <div className="mt-4">
+          <div className="mt-4 text-sm">
             <button
               ref={fnButtonRef}
               type="button"

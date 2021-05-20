@@ -30,10 +30,13 @@ export const ProjectModal = ({
   return (
     <div>
       <BaseModal onClose={onClose} open={open} focusRef={initialFocus} width="max-w-2xl">
-        <Dialog.Title as="h3" className="text-xl font-black tracking-wide leading-6 text-gray-700">
+        <Dialog.Title
+          as="h3"
+          className="underline text-lg font-black tracking-wide leading-6 text-gray-700"
+        >
           {dialogTitle}
         </Dialog.Title>
-        <div className="mt-4">
+        <div className="mt-2">
           <div className="flex flex-col">
             <label htmlFor="project-name" className="mb-1 text-gray-600">
               Enter your project&apos;s name
@@ -50,7 +53,7 @@ export const ProjectModal = ({
           </div>
         </div>
 
-        <div className="mt-4">
+        <div className="mt-4 text-sm">
           <button
             ref={fnButtonRef}
             type="button"
