@@ -109,10 +109,14 @@ export class FormsModel extends BaseModel {
   }
 
   /* for updating form */
-  async UpdateForm(data: BaseFormProps, formid: string) {
+  async UpdateForm(data: BaseFormProps, formid: string): Promise<QueryManager<FormProps>> {
     return this._client
-      .query(Update(Ref(Collection('forms'), formid), data))
-      .then((r) => console.log(r))
-      .catch((e) => console.error(e));
+      .query(
+        Update(Ref(Collection('forms'), formid), {
+          data
+        })
+      )
+      .then((r: FaunaResponseProps<FormProps>) => getQuery(r.data))
+      .catch((e) => getQueryError(e));
   }
 }

@@ -22,15 +22,13 @@ const updateForms = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const data: BaseFormProps = {
     name: body[1].name,
-    description: body[1].desription
+    description: body[1].description
   };
 
   const p = new FormsModel(token);
-  await p.UpdateForm(data, body[1].refid);
+  const q = await p.UpdateForm(data, body[1].formid);
 
-  res.status(200).json({});
-
-  // res.status(q.code).json(q);
+  res.status(q.code).json(q);
 };
 
 export default methodHandler(withApiAuthRequired(updateForms), ['POST', 'PUT']);
