@@ -20,8 +20,14 @@ export const ListProjects = () => {
       {projects &&
         projects.data.map((project, index) => (
           <Link href={`/dashboard/projects/${project.data.id}`} key={index}>
-            <a className="my-2 rounded-lg border border-purple-300 hover:bg-purple-500 hover:text-white text-lg tracking-wide px-6 py-4 font-bold text-gray-700">
-              <li className="">{project.data.name}</li>
+            <a className="my-2 group rounded-lg border border-purple-300 hover:bg-purple-500 px-6 py-4 flex items-center justify-between">
+              <strong className="group-hover:text-white text-lg tracking-wide font-bold text-gray-600">
+                {project.data.name}
+              </strong>
+              <p className="text-gray-500">
+                ({project.data.formRefs.length}{' '}
+                {`form${project.data.formRefs.length !== 1 ? 's' : ''}`})
+              </p>
             </a>
           </Link>
         ))}
