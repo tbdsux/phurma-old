@@ -60,6 +60,7 @@ export const RenameProjectModal = ({ name, refid, id }: RenameProjectProps) => {
       fnButtonRef={createProjectBtn}
       dialogTitle="Modify | Rename Project"
       fnButtonText="Rename Project"
+      initialFocus={inputProjectNameRef}
     >
       <button
         onClick={openModal}

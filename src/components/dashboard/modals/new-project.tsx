@@ -50,6 +50,7 @@ export const NewProjectModal = () => {
       fnButtonRef={createProjectBtn}
       dialogTitle="Create New Project"
       fnButtonText="Create Project"
+      initialFocus={inputProjectNameRef}
     >
       <ColorButton
         onClick={openProjectModal}

@@ -1,0 +1,87 @@
+import { Dialog } from '@headlessui/react';
+import { MutableRefObject, ReactNode } from 'react';
+import { BaseModal } from './base';
+
+type FormsModalProps = {
+  onClose: () => void;
+  open: boolean;
+  initialFocus: MutableRefObject<HTMLElement>;
+  inputFormNameRef: MutableRefObject<HTMLInputElement>;
+  inputFormNameValue: string;
+  inputFormDescriptionRef: MutableRefObject<HTMLInputElement>;
+  inputFormDescriptionValue: string;
+  fnButtonRef: MutableRefObject<HTMLButtonElement>;
+  fnButtonText: string;
+  fnHandler: () => void;
+  dialogTitle: string;
+  children: ReactNode;
+};
+
+export const FormsModal = ({
+  onClose,
+  open,
+  initialFocus,
+  inputFormDescriptionRef,
+  inputFormDescriptionValue,
+  inputFormNameRef,
+  inputFormNameValue,
+  fnButtonRef,
+  fnButtonText,
+  fnHandler,
+  dialogTitle,
+  children
+}: FormsModalProps) => {
+  return (
+    <div>
+      <BaseModal open={open} onClose={onClose} focusRef={initialFocus} width="max-w-2xl">
+        <Dialog.Title as="h3" className="text-xl font-black tracking-wide leading-6 text-gray-700">
+          {dialogTitle}
+        </Dialog.Title>
+        <div className="mt-4 mx-4">
+          <div>
+            <div className="flex flex-col">
+              <label htmlFor="project-name" className="mb-1 text-gray-600">
+                Enter your form&apos;s name
+              </label>
+              <input
+                ref={inputFormNameRef}
+                type="text"
+                name="project-name"
+                id="input-project-name"
+                defaultValue={inputFormNameValue}
+                className="border-2 border-purple-200 py-2 px-4 text-purple-500 tracking-wide focus:outline-none focus:border-purple-500 rounded-lg"
+                placeholder="What is your project's name?"
+              />
+            </div>
+            <div className="flex flex-col mt-3">
+              <label htmlFor="project-description" className="mb-1 text-gray-600 text-sm">
+                Description for your form
+              </label>
+              <input
+                ref={inputFormDescriptionRef}
+                type="text"
+                name="project-description"
+                id="input-project-description"
+                defaultValue={inputFormDescriptionValue}
+                className="border-2 border-purple-200 py-2 px-4 text-purple-500 tracking-wide focus:outline-none focus:border-purple-500 rounded-lg text-sm"
+                placeholder="Enter a description about the form..."
+              />
+            </div>
+          </div>
+
+          <div className="mt-4">
+            <button
+              ref={fnButtonRef}
+              type="button"
+              className="focus:outline-none border-2 focus:border-purple-600 border-purple-200 py-2 px-6 bg-purple-400 hover:bg-purple-500 text-white rounded-lg disabled:hover:bg-purple-400"
+              onClick={fnHandler}
+            >
+              {fnButtonText}
+            </button>
+          </div>
+        </div>
+      </BaseModal>
+      {children}
+    </div>
+  );
+};

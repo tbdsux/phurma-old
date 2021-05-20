@@ -1,14 +1,8 @@
-const colors = require('tailwindcss/colors');
-
 module.exports = {
   mode: 'jit',
   purge: ['./src/**/*.tsx'],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    colors: {
-      bland: 'rgba(0, 0, 0, 0.5)',
-      ...colors
-    },
     fontFamily: {
       sans: ['"Inter"', 'sans-serif']
     },
@@ -17,5 +11,5 @@ module.exports = {
   variants: {
     extend: {}
   },
-  plugins: [require('@tailwindcss/line-clamp')]
+  plugins: [require('@ootiq/tailwind-blandcolors'), require('@tailwindcss/line-clamp')]
 };

@@ -253,6 +253,11 @@
   resolved "https://registry.yarnpkg.com/@ootiq/just-faunautils/-/just-faunautils-0.0.6.tgz#1406bb8dd667c0a657cb4a5691f80455416f9d0f"
   integrity sha512-LpXWuo6wM7g+zwmTPgmviHuE7jcWNZuOguOWqA45VuEezalyZh/IJjfj/iZzX71TK9LlEEZ+wJk9KihxQdARsw==
 
+"@ootiq/tailwind-blandcolors@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@ootiq/tailwind-blandcolors/-/tailwind-blandcolors-0.0.2.tgz#f9150881e462bfeb082be8eac63297f15848896c"
+  integrity sha512-upAXTdrgjOFUdjLO1bWXe6wZIU5pYXrvBBdDLX3iM767G+YIZJU5IHi5gmjCUy3EVh8ibRS3tDeK3Y+xHK5svw==
+
 "@opentelemetry/api@0.14.0":
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/@opentelemetry/api/-/api-0.14.0.tgz#4e17d8d2f1da72b19374efa7b6526aa001267cae"
