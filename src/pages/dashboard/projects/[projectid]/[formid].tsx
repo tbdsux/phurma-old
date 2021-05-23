@@ -3,7 +3,6 @@ import { DashLayout } from '@layouts/DashLayout';
 import React, { Fragment, useState } from 'react';
 import { SelectorIcon, CheckIcon } from '@heroicons/react/solid';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0/dist/frontend';
-import { DataProps } from '@ootiq/just-faunautils/lib/utils';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import { QueryManager } from '~types/query';
@@ -13,6 +12,7 @@ import { FaunaResponseProps } from '@ootiq/just-faunautils';
 
 import Error from 'next/error';
 import { PageCrumbs } from '@components/dashboard/page-crumbs';
+import { MapResponse } from '@components/dashboard/responses/map-response';
 
 // view mode for submissions
 const viewSubmissionsMode = {
@@ -28,12 +28,6 @@ const FormPage = withPageAuthRequired(() => {
   const [selectView, setSelectView] = useState(viewSubmissionsMode.all);
 
   const [selected, setSelected] = useState<FaunaResponseProps<ResponseProps>>();
-
-  // generates a preview-like string
-  const stringJson = (d: DataProps) => {
-    const f = Object.keys(d)[0];
-    return [f, d[f]].join(' ');
-  };
 
   const { data: form } = useSWR<QueryManager<FormPropsById>>(
     formid && `/api/user/projects/forms/${projectid}/${formid}`
@@ -138,28 +132,11 @@ const FormPage = withPageAuthRequired(() => {
 
           <div className="grid grid-cols-4 gap-2 h-screen">
             <div className="col-span-1 border-r overflow-y-auto">
-              <ul>
-                {form.data.responses.map((submission, index) => (
-                  <>
-                    <li
-                      onClick={() => {
-                        setSelected(submission);
-                      }}
-                      key={index}
-                      className={`py-8 px-3 cursor-pointer ${
-                        index !== form.data.responses.indexOf(selected)
-                          ? 'hover:bg-purple-200'
-                          : 'bg-purple-200'
-                      }`}
-                    >
-                      <p className="line-clamp-2 tracking-wide text-gray-700">
-                        {stringJson(submission.data.data)}
-                      </p>
-                    </li>
-                    <hr />
-                  </>
-                ))}
-              </ul>
+              <MapResponse
+                responses={form.data.responses}
+                selected={selected}
+                setSelected={setSelected}
+              />
             </div>
             <div className="col-span-3 p-6 overflow-y-auto">
               {selected &&
