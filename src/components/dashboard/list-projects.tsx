@@ -3,16 +3,26 @@ import Link from 'next/link';
 
 import useSWR from 'swr';
 
-import { ProjectProps } from '~types/projects';
+import { ListProjectProps, ProjectProps } from '~types/projects';
 import { QueryManager } from '~types/query';
 
-export const ListProjects = () => {
+export const ListProjects = ({ projects: initialProjects }: ListProjectProps) => {
   const { data: projects } = useSWR<QueryManager<FaunaResponseProps<ProjectProps>[]>>(
-    '/api/user/projects/fetch'
+    '/api/user/projects/fetch',
+    { initialData: initialProjects }
   );
 
   if (!projects) {
     return <p>Loading...</p>;
+  }
+
+  // show error in text for if it is
+  if (projects?.error) {
+    return (
+      <p className="text-red-500" id="error-message">
+        {projects.description}
+      </p>
+    );
   }
 
   return (

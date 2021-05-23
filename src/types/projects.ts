@@ -2,6 +2,7 @@ import { FaunaResponseProps } from '@ootiq/just-faunautils';
 import { Expr } from 'faunadb';
 import Joi from 'joi';
 import { FormProps } from './forms';
+import { QueryManager } from './query';
 
 interface BaseProjectProps {
   name: string;
@@ -38,3 +39,10 @@ const UpdateProjectPropsSchema = ProjectsSchema.keys({
 
 export type { ProjectProps, ProjectByIdProps, BaseProjectProps };
 export { CreateProjectPropsSchema, UpdateProjectPropsSchema };
+
+/* page props */
+type ListProjectProps = {
+  projects: QueryManager<FaunaResponseProps<ProjectProps>[]>;
+};
+
+export type { ListProjectProps };
