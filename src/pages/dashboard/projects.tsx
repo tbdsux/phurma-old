@@ -1,9 +1,9 @@
 import { GetServerSideProps, NextPage } from 'next';
-import { getSession, withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { ListProjects } from '@components/dashboard/list-projects';
 import { DashLayout } from '@layouts/DashLayout';
 import { ListProjectProps } from '~types/projects';
-import { ProjectModel } from '@fauna/models/projects';
+import { getUserProjects } from '@functions/getProject';
+import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 
 const AllProjectsPage: NextPage<ListProjectProps> = ({ projects }) => {
   return (
@@ -25,12 +25,8 @@ const AllProjectsPage: NextPage<ListProjectProps> = ({ projects }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = withPageAuthRequired({
-  getServerSideProps: async (ctx) => {
-    const sess = getSession(ctx.req, ctx.res);
-    const token = sess.user.token;
-
-    const p = new ProjectModel(token);
-    const q = await p.FetchProjects();
+  getServerSideProps: async ({ req, res }) => {
+    const q = await getUserProjects(req, res);
 
     return {
       props: {

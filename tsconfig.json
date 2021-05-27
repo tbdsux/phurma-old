@@ -21,7 +21,8 @@
       "@fauna/*": ["fauna/*"],
       "@middleware/*": ["middleware/*"],
       "@layouts/*": ["layouts/*"],
-      "~types/*": ["types/*"]
+      "~types/*": ["types/*"],
+      "@functions/*": ["functions/*"]
     }
   },
   "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx"],
