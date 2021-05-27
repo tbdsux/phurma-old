@@ -5,6 +5,6 @@ interface QueryManager<T> {
   data?: T;
 }
 
-interface ErrorQuery extends QueryManager<undefined> {}
+type ErrorQuery = QueryManager<undefined>;
 
 export type { QueryManager, ErrorQuery };

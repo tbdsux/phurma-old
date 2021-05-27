@@ -26,6 +26,9 @@ interface FormPropsById {
   responses: FaunaResponseProps<ResponseProps>[];
 }
 
+/**
+ * Schema validation props. Used for validating the request body.
+ */
 interface FormSchemaProps extends BaseFormProps {
   projectid: string;
   formid?: string;
