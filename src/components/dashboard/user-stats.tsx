@@ -10,7 +10,7 @@ export const UserStats = () => {
   return (
     <div className="my-12">
       <p className="text-gray-500 tracking-wider">My Statistics: </p>
-      <section className="mt-4 grid grid-cols-2 gap-8">
+      <section className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-8">
         <div className="rounded-lg p-6 border border-purple-300">
           <h3 className="font-black text-5xl text-purple-500">{stats.data.total.projects}</h3>
           <h4 className="text-lg mt-2 text-gray-600">Total Projects</h4>

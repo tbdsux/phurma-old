@@ -60,7 +60,7 @@ export const NewFormModal = ({ projectid, projectKeyId }: NewFormModalProps) => 
     >
       <button
         onClick={openModal}
-        className="text-sm py-1 px-4 rounded-md border border-purple-300 bg-purple-100 hover:bg-purple-300 text-purple-800 opacity-90 hover:opacity-100"
+        className="mt-2 xs:mt-0 text-sm py-1 px-4 rounded-md border border-purple-300 bg-purple-100 hover:bg-purple-300 text-purple-800 opacity-90 hover:opacity-100"
       >
         Create New Form
       </button>

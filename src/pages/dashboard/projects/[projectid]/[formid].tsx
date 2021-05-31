@@ -66,7 +66,7 @@ const FormPage = withPageAuthRequired(() => {
             <strong>{`${process.env.NEXT_PUBLIC_WEBSITE}/api/${form.data.form.id}`}</strong>
           </p>
 
-          <div className="mt-8 mb-3 flex items-center justify-between">
+          <div className="mt-8 mb-3 flex flex-col md:flex-row items-start md:items-center justify-between">
             <h4 className="text-xl font-bold tracking-wide">{form.data.form.name}</h4>
             <div className="w-72">
               <Listbox value={selectView} onChange={setSelectView}>

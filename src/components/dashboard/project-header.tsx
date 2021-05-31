@@ -9,9 +9,9 @@ type ProjectHeaderProps = {
 
 export const ProjectHeader = ({ name, refid, id }: ProjectHeaderProps) => {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex flex-col xs:flex-row items-stretch xs:items-center justify-between">
       <div className="inline-flex items-center">
-        <h3 className="text-xl font-bold text-gray-500 mr-2">{name}</h3>
+        <h3 className="text-xl font-bold text-gray-500 mr-2 truncate">{name}</h3>
         <RenameProjectModal name={name} refid={refid} id={id} />
       </div>
       <NewFormModal projectid={refid} projectKeyId={id} />

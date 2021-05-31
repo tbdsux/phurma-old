@@ -4,14 +4,14 @@ export const DashFooter = () => {
   return (
     <>
       <hr />
-      <footer className="w-5/6 mx-auto py-10 flex items-center justify-between">
+      <footer className="w-5/6 mx-auto py-10 flex flex-col sm:flex-row items-center justify-between">
         <Link href="/">
           <a>
             <h3 className="font-bold tracking-wide text-purple-500">phurma</h3>
           </a>
         </Link>
 
-        <p className="text-sm text-gray-700">&copy; 2021 | All Rights Reserved</p>
+        <p className="text-sm text-gray-700 my-4 sm:my-0">&copy; 2021 | All Rights Reserved</p>
 
         <ul className="text-sm text-gray-500">
           <li>
