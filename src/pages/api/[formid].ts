@@ -1,11 +1,23 @@
 import { ResponsesModel } from '@fauna/models/responses';
 import { joinString } from '@lib/utils';
-import methodHandler from '@middleware/methods';
+import { cors } from '@middleware/cors';
 import { nanoid } from 'nanoid';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { ResponseProps } from '~types/response';
 
 const formApiBackend = async (req: NextApiRequest, res: NextApiResponse) => {
+  // cors
+  await cors(req, res);
+
+  // method validation
+  if (!['PUT', 'POST'].includes(req.method)) {
+    res.setHeader('Allow', ['PUT', 'POST']);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
+    return;
+  }
+
+  /* submit form */
+
   const { formid } = req.query;
   const data = req.body;
 
@@ -32,4 +44,4 @@ const formApiBackend = async (req: NextApiRequest, res: NextApiResponse) => {
     .json(q.error ? q : { error: false, code: 200, description: 'Response has been submitted!' });
 };
 
-export default methodHandler(formApiBackend, ['POST', 'PUT']);
+export default formApiBackend;
