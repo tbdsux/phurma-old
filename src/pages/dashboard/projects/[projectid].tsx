@@ -19,25 +19,25 @@ const ProjectPage = withPageAuthRequired(() => {
   );
 
   return (
-    <DashLayout pageTitle={project ? project.data.name : 'Loading project...'}>
+    <DashLayout pageTitle={project?.data ? project.data.name : 'Loading project...'}>
       <div>
         {project && (
           <>
             <PageCrumbs
               links={[
                 { text: 'projects', href: '/dashboard/projects' },
-                { text: project.data.name, href: `/dashboard/projects/${projectid}` }
+                { text: project.data?.name, href: `/dashboard/projects/${projectid}` }
               ]}
             />
 
             <ProjectHeader
-              name={project.data.name}
-              refid={project.data.ref['@ref'].id}
+              name={project.data?.name}
+              refid={project.data?.ref['@ref'].id}
               id={joinString(projectid)}
             />
 
             <div className="mt-8 w-11/12 mx-auto">
-              <ListForms projectid={joinString(projectid)} forms={project.data.forms} />
+              <ListForms projectid={joinString(projectid)} forms={project.data?.forms} />
             </div>
           </>
         )}

@@ -19,7 +19,10 @@ import {
   Match,
   Index,
   Equals,
-  If
+  If,
+  Delete,
+  Filter,
+  Not
 } from 'faunadb';
 import { BaseFormProps, FormProps, FormPropsById } from '~types/forms';
 import { QueryManager } from '~types/query';
@@ -117,6 +120,67 @@ export class FormsModel extends BaseModel {
         })
       )
       .then((r: FaunaResponseProps<FormProps>) => getQuery(r.data))
+      .catch((e) => getQueryError(e));
+  }
+
+  /* for deleting forms */
+  async DeleteForm(projectRefId: string, formid: string): Promise<QueryManager<null>> {
+    return this._client
+      .query(
+        Let(
+          {
+            formDoc: Get(Match(Index('forms_by_id'), formid)),
+            formRef: Select(['ref'], Var('formDoc')),
+            projectDoc: Get(Ref(Collection('projects'), projectRefId)),
+            projectRef: Select(['ref'], Var('projectDoc')),
+            allForms: Select(['data', 'formRefs'], Var('projectDoc')),
+            owner: Select(['data', 'owner'], Var('formDoc')),
+            projectRefID: Select(['data', 'projectid'], Var('formDoc'))
+          },
+          If(
+            Equals(CurrentIdentity(), Var('owner')),
+            If(
+              Equals(Var('projectRefID'), projectRefId),
+              Let(
+                {
+                  newProjects: Filter(
+                    Var('allForms'),
+                    Lambda('x', Not(Equals(Var('x'), Var('formRef'))))
+                  )
+                },
+                Do(
+                  Delete(Var('formRef')),
+                  Update(Var('projectRef'), {
+                    data: {
+                      formRefs: Var('newProjects')
+                    }
+                  }),
+                  Map(
+                    Paginate(Match(Index('responses_by_formid'), formid)),
+                    Lambda(['date', 'i'], Delete(Var('i')))
+                  ),
+                  {
+                    error: false,
+                    code: 200,
+                    description: 'Successfully removed the form'
+                  }
+                )
+              ),
+              {
+                error: true,
+                code: 404,
+                description: 'Unknown Projectid'
+              }
+            ),
+            {
+              error: true,
+              code: 403,
+              description: "User doesn't own the form."
+            }
+          )
+        )
+      )
+      .then((r: QueryManager<null>) => r)
       .catch((e) => getQueryError(e));
   }
 }
