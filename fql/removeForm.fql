@@ -1,0 +1,56 @@
+CreateFunction({
+  name: 'removeForm',
+  role: Role("PublicUserRole"),
+  body: Query(Lambda(["qProjectRefid", "qFormid"], Let(
+    {
+      formDoc: Get(Match(Index('forms_by_id'), Var("qFormid"))),
+      formRef: Select(['ref'], Var('formDoc')),
+      projectDoc: Get(Ref(Collection('projects'), Var("qProjectRefid"))),
+      projectRef: Select(['ref'], Var('projectDoc')),
+      allForms: Select(['data', 'formRefs'], Var('projectDoc')),
+      owner: Select(['data', 'owner'], Var('formDoc')),
+      projectRefID: Select(['data', 'projectid'], Var('formDoc'))
+    },
+    If(
+      Equals(CurrentIdentity(), Var('owner')),
+      If(
+          Equals(Var('projectRefID'), Var("qProjectRefid")),
+          Let(
+          {
+            newProjects: Filter(
+            Var('allForms'),
+            Lambda('x', Not(Equals(Var('x'), Var('formRef'))))
+            )
+          },
+          Do(
+            Delete(Var('formRef')),
+            Update(Var('projectRef'), {
+            data: {
+                formRefs: Var('newProjects')
+            }
+            }),
+            Map(
+              Paginate(Match(Index('responses_by_formid'), Var("qFormid"))),
+              Lambda(['date', 'i'], Delete(Var('i')))
+            ),
+            {
+              error: false,
+              code: 200,
+              description: 'Successfully removed the form'
+            }
+          )
+          ),
+          {
+            error: true,
+            code: 404,
+            description: 'Unknown Projectid'
+          }
+      ),
+      {
+        error: true,
+        code: 403,
+        description: "User doesn't own the form."
+      }
+    )
+  )))
+})

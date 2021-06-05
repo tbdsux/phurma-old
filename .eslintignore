@@ -10,6 +10,7 @@ fauna-queries
 # scripts & utils (outside src)
 scripts
 utils
+fql
 
 # public
 public
