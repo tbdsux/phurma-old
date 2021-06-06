@@ -33,7 +33,7 @@ export const SelectedResponse = ({
               <span className="text-sm tracking-wide bg-gray-200 p-1 rounded-md text-gray-800">
                 {key}
               </span>
-              <p className="mt-1 text-gray-600 tracking-wide">{value}</p>
+              <p className="mt-1 text-gray-600 tracking-wide">{JSON.stringify(value)}</p>
             </div>
           ))}
         </>
