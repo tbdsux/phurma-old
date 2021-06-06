@@ -81,7 +81,8 @@ export class FormsModel extends BaseModel {
               ref: Var('formRef'),
               project: {
                 name: Select(['data', 'name'], Var('projectDoc')),
-                id: Select(['data', 'id'], Var('projectDoc'))
+                id: Select(['data', 'id'], Var('projectDoc')),
+                refid: Select(['ref', 'id'], Var('projectDoc'))
               },
               form: Select(['data'], Var('formDoc')),
               responses: Select(
@@ -127,10 +128,6 @@ export class FormsModel extends BaseModel {
     return this._client
       .query(Call(Function('removeForm'), [projectRefId, formid]))
       .then((r: QueryManager<null>) => r)
-      .catch((e) => {
-        console.error(e);
-
-        return getQueryError(e);
-      });
+      .catch((e) => getQueryError(e));
   }
 }

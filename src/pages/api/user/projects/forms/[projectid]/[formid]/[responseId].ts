@@ -18,7 +18,7 @@ const removeResponse = async (req: NextApiRequest, res: NextApiResponse) => {
     joinString(responseId)
   );
 
-  res.send(q);
+  res.status(q.code).json(q);
 };
 
 export default methodHandler(withApiAuthRequired(removeResponse), ['DELETE']);

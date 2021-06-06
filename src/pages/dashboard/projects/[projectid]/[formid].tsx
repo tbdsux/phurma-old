@@ -14,7 +14,6 @@ import Error from 'next/error';
 import { PageCrumbs } from '@components/dashboard/page-crumbs';
 import { MapResponse } from '@components/dashboard/responses/map-response';
 import { SelectedResponse } from '@components/dashboard/responses/selected';
-import { joinString } from '@lib/utils';
 
 // view mode for submissions
 const viewSubmissionsMode = {
@@ -140,7 +139,12 @@ const FormPage = withPageAuthRequired(() => {
                 setSelected={setSelected}
               />
             </div>
-            <SelectedResponse selected={selected?.data} projectid={joinString(projectid)} />
+            <SelectedResponse
+              selected={selected?.data}
+              projectRefId={form.data.project.refid}
+              projectId={form.data.project.id}
+              setSelected={setSelected}
+            />
           </div>
         </div>
       )}

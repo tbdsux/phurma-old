@@ -1,13 +1,21 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
+
+import { mutate } from 'swr';
 import { RemoveModal } from './remove-modal';
+import { FaunaResponseProps } from '@ootiq/just-faunautils';
+import { ResponseProps } from '~types/response';
 
 type RemoveResponseProps = {
-  projectid: string;
+  project: {
+    id: string;
+    refid: string;
+  };
   formid: string;
   resId: string;
+  setSelected: Dispatch<SetStateAction<FaunaResponseProps<ResponseProps>>>;
 };
 
-export const RemoveResponse = ({ projectid, formid, resId }: RemoveResponseProps) => {
+export const RemoveResponse = ({ project, formid, resId, setSelected }: RemoveResponseProps) => {
   const [open, setOpen] = useState(false);
 
   const closeModal = () => {
@@ -19,11 +27,16 @@ export const RemoveResponse = ({ projectid, formid, resId }: RemoveResponseProps
   };
 
   const handler = () => {
-    fetch(`/api/user/projects/forms/${projectid}/${formid}/${resId}`, {
+    fetch(`/api/user/projects/forms/${project.refid}/${formid}/${resId}`, {
       method: 'DELETE'
     })
       .then((r) => r.json())
-      .then((data) => console.log(data))
+      .then(() => {
+        setSelected(null);
+        mutate(`/api/user/projects/forms/${project.id}/${formid}`).then(() => {
+          closeModal();
+        });
+      })
       .catch((e) => console.error(e));
   };
 
