@@ -13,6 +13,8 @@ import { FaunaResponseProps } from '@ootiq/just-faunautils';
 import Error from 'next/error';
 import { PageCrumbs } from '@components/dashboard/page-crumbs';
 import { MapResponse } from '@components/dashboard/responses/map-response';
+import { SelectedResponse } from '@components/dashboard/responses/selected';
+import { joinString } from '@lib/utils';
 
 // view mode for submissions
 const viewSubmissionsMode = {
@@ -138,17 +140,7 @@ const FormPage = withPageAuthRequired(() => {
                 setSelected={setSelected}
               />
             </div>
-            <div className="col-span-3 p-6 overflow-y-auto">
-              {selected &&
-                Object.entries(selected.data.data).map(([key, value], index) => (
-                  <div key={index} className="my-4">
-                    <span className="text-sm tracking-wide bg-gray-200 p-1 rounded-md text-gray-800">
-                      {key}
-                    </span>
-                    <p className="mt-1 text-gray-600 tracking-wide">{value}</p>
-                  </div>
-                ))}
-            </div>
+            <SelectedResponse selected={selected?.data} projectid={joinString(projectid)} />
           </div>
         </div>
       )}

@@ -1,4 +1,5 @@
 import { NewFormModal } from './modals/new-form';
+import { RemoveProject } from './modals/remove-project';
 import { RenameProjectModal } from './modals/rename-project';
 
 type ProjectHeaderProps = {
@@ -13,6 +14,7 @@ export const ProjectHeader = ({ name, refid, id }: ProjectHeaderProps) => {
       <div className="inline-flex items-center">
         <h3 className="text-xl font-bold text-gray-500 mr-2 truncate">{name}</h3>
         <RenameProjectModal name={name} refid={refid} id={id} />
+        <RemoveProject projectid={id} />
       </div>
       <NewFormModal projectid={refid} projectKeyId={id} />
     </div>
