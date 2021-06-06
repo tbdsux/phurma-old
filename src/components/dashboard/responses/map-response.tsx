@@ -31,12 +31,11 @@ const MapResponse = ({ responses, selected, setSelected }: MapResponseProps) => 
   return (
     <ul>
       {responses.map((submission, index) => (
-        <>
-          <li
+        <li key={index}>
+          <div
             onClick={() => {
               setSelected(submission);
             }}
-            key={index}
             className={`relative py-8 px-3 cursor-pointer ${
               index !== responses.indexOf(selected) ? 'hover:bg-purple-200' : 'bg-purple-200'
             }`}
@@ -49,9 +48,9 @@ const MapResponse = ({ responses, selected, setSelected }: MapResponseProps) => 
             <p className="line-clamp-2 tracking-wide text-gray-700">
               {stringJson(submission.data.data)}
             </p>
-          </li>
+          </div>
           <hr />
-        </>
+        </li>
       ))}
     </ul>
   );
