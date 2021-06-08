@@ -17,7 +17,11 @@ import {
   Update,
   Ref,
   Collection,
-  Reverse
+  Reverse,
+  Do,
+  Call,
+  Function,
+  Delete
 } from 'faunadb';
 import { BaseProjectProps, ProjectByIdProps, ProjectProps } from '~types/projects';
 import { QueryManager } from '~types/query';
@@ -106,5 +110,59 @@ export class ProjectModel {
       )
       .then((r: FaunaResponseProps<ProjectProps>) => getQuery(r.data))
       .catch((e) => getQueryError(e));
+  }
+
+  // for removeing the project
+  async RemoveProject(projectRefId: string) {
+    return this._client
+      .query(
+        Let(
+          {
+            projectRef: Ref(Collection('projects'), projectRefId),
+            projectDoc: Get(Var('projectRef')),
+            owner: Select(['data', 'owner'], Var('projectDoc')),
+            formRefs: Select(['data', 'formRefs'], Var('projectDoc'))
+          },
+          If(
+            Equals(CurrentIdentity(), Var('owner')),
+            Do(
+              // remove each `formRefs`
+              Map(
+                Var('formRefs'),
+                Lambda(
+                  'x',
+                  Let(
+                    {
+                      formDoc: Get(Var('x')),
+                      formId: Select(['data', 'id'], Var('formDoc'))
+                    },
+                    Call(Function('removeForm'), [projectRefId, Var('formId')])
+                  )
+                )
+              ),
+              // remove the project
+              Delete(Var('projectRef')),
+              {
+                error: false,
+                code: 200,
+                description: 'Succesfully removed the project'
+              }
+            ),
+            {
+              error: true,
+              code: 404,
+              description: 'Unknown project.'
+            }
+          )
+        )
+      )
+      .then((r: QueryManager<null>) => {
+        console.log(r);
+        return r;
+      })
+      .catch((e) => {
+        console.error(e);
+        return getQueryError(e);
+      });
   }
 }

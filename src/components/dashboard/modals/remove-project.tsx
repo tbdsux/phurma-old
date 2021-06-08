@@ -1,11 +1,15 @@
 import { useState } from 'react';
+
+import Router from 'next/router';
+
 import { RemoveModal } from './remove-modal';
+import { mutate } from 'swr';
 
 type RemoveProjectProps = {
-  projectid: string;
+  projectRefId: string;
 };
 
-export const RemoveProject = ({ projectid }: RemoveProjectProps) => {
+export const RemoveProject = ({ projectRefId }: RemoveProjectProps) => {
   const [open, setOpen] = useState(false);
 
   const closeModal = () => {
@@ -17,11 +21,15 @@ export const RemoveProject = ({ projectid }: RemoveProjectProps) => {
   };
 
   const handler = () => {
-    fetch(`/api/user/projects/${projectid}`, {
+    fetch(`/api/user/projects/${projectRefId}`, {
       method: 'DELETE'
     })
       .then((r) => r.json())
-      .then((data) => console.log(data))
+      .then(() => {
+        mutate('/api/user/projects/fetch').then(() => {
+          Router.push('/dashboard/projects');
+        });
+      })
       .catch((e) => console.error(e));
   };
 
