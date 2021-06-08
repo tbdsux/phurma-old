@@ -8,6 +8,7 @@ import { ProjectHeader } from '@components/dashboard/project-header';
 import { joinString } from '@lib/utils';
 import { PageCrumbs } from '@components/dashboard/page-crumbs';
 import { ListForms } from '@components/dashboard/list-forms';
+import { ErrorPageComponent } from '@components/error-page';
 
 const ProjectPage = withPageAuthRequired(() => {
   const router = useRouter();
@@ -17,6 +18,10 @@ const ProjectPage = withPageAuthRequired(() => {
   const { data: project } = useSWR<QueryManager<ProjectByIdProps>>(
     projectid && `/api/user/projects/fetch/${projectid}`
   );
+
+  if (project?.error) {
+    return <ErrorPageComponent code={project.code} title={project.description} />;
+  }
 
   return (
     <DashLayout pageTitle={project?.data ? project.data.name : 'Loading project...'}>

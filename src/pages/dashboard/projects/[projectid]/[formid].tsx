@@ -9,11 +9,10 @@ import { QueryManager } from '~types/query';
 import { FormPropsById } from '~types/forms';
 import { ResponseProps } from '~types/response';
 import { FaunaResponseProps } from '@ootiq/just-faunautils';
-
-import Error from 'next/error';
 import { PageCrumbs } from '@components/dashboard/page-crumbs';
 import { MapResponse } from '@components/dashboard/responses/map-response';
 import { SelectedResponse } from '@components/dashboard/responses/selected';
+import { ErrorPageComponent } from '@components/error-page';
 
 // view mode for submissions
 const viewSubmissionsMode = {
@@ -34,10 +33,8 @@ const FormPage = withPageAuthRequired(() => {
     formid && `/api/user/projects/forms/${projectid}/${formid}`
   );
 
-  if (form) {
-    if (form.error) {
-      return <Error statusCode={form.code} />;
-    }
+  if (form?.error) {
+    return <ErrorPageComponent code={form.code} title={form.description} />;
   }
 
   return (
