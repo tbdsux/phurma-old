@@ -9,7 +9,7 @@ type TextLinkProps = {
 };
 
 const textClassName = (classname: string) =>
-  ['text-gray-600 hover:text-purple-500', classname].join(' ');
+  ['text-gray-600 hover:text-purple-500 tracking-wide', classname].join(' ');
 
 const TextLink = ({ href, className, id, children }: TextLinkProps) => {
   return (

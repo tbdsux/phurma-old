@@ -8,12 +8,12 @@ import { Color } from '@components/shared/colorizer';
 const Index: NextPage = () => {
   return (
     <PageLayout pageTitle="phurma | Form Submission Using an API">
-      <section className="py-20 text-center">
+      <section className="py-40 text-center">
         <Container size="w-4/5">
           <h2 className="text-5xl font-black tracking-wide text-gray-700">
             Integrate <Color>Forms</Color> with an <Color>API</Color>
           </h2>
-          <p className="py-8 text-xl tracking-wide text-gray-500">
+          <p className="p-8 text-xl tracking-wide text-gray-500">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni sit beatae molestiae
             doloremque. Soluta rem odio, quo earum sint quia.
           </p>

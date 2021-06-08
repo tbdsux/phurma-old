@@ -13,7 +13,7 @@ export const DashHeader = () => {
             <span className="text-gray-500 text-sm ml-8">dashboard</span>
           </a>
         </Link>
-        <ul className="flex items-center justify-between mt-4 sm:mt-0 text-sm md:text-base">
+        <ul className="flex items-center justify-between mt-4 sm:mt-0 text-sm">
           <li>
             <NewProjectModal />
           </li>
