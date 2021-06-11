@@ -8,7 +8,7 @@ export const DashHeader = () => {
     <>
       <header className="w-11/12 lg:w-5/6 mx-auto py-4 flex flex-col sm:flex-row items-center justify-between">
         <Link href="/dashboard">
-          <a>
+          <a title="phurma - dashboard">
             <h1 className="text-2xl font-black text-purple-500">phurma</h1>{' '}
             <span className="text-gray-500 text-sm ml-8">dashboard</span>
           </a>
@@ -18,10 +18,14 @@ export const DashHeader = () => {
             <NewProjectModal />
           </li>
           <li className="ml-8 xs:ml-10 xl:ml-14">
-            <TextLink href="/dashboard/projects">Projects</TextLink>
+            <TextLink title="Projects" href="/dashboard/projects">
+              Projects
+            </TextLink>
           </li>
           <li className="ml-8 xs:ml-10 xl:ml-14">
-            <AnchorTextLink href="/api/auth/logout?returnTo=/">Log Out</AnchorTextLink>
+            <AnchorTextLink title="Logout User" href="/api/auth/logout?returnTo=/">
+              Log Out
+            </AnchorTextLink>
           </li>
         </ul>
       </header>

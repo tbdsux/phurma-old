@@ -30,7 +30,10 @@ export const ListProjects = ({ projects: initialProjects }: ListProjectProps) =>
       {projects &&
         projects.data.map((project, index) => (
           <Link href={`/dashboard/projects/${project.data.id}`} key={index}>
-            <a className="my-2 rounded-lg border group border-purple-300 hover:bg-purple-400 px-6 py-4 flex items-center justify-between">
+            <a
+              title={`Select project '${project.data.name}'`}
+              className="my-2 rounded-lg border group border-purple-300 hover:bg-purple-400 px-6 py-4 flex items-center justify-between"
+            >
               <strong className="text-lg tracking-wide font-bold text-gray-700 group-hover:text-white">
                 {project.data.name}
               </strong>

@@ -53,6 +53,7 @@ export const NewProjectModal = () => {
       initialFocus={inputProjectNameRef}
     >
       <ColorButton
+        title="Create a new project"
         onClick={openProjectModal}
         className="py-2 px-4 rounded-lg tracking-wide text-sm inline-flex items-center"
       >

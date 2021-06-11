@@ -15,13 +15,27 @@ export const DashFooter = () => {
 
         <ul className="text-sm text-gray-500">
           <li>
-            <a href="https://github.com/TheBoringDude/phurma">Github</a>
+            <a
+              title="Goto Github"
+              href="https://github.com/TheBoringDude/phurma"
+              className="hover:text-gray-600"
+            >
+              Github
+            </a>
           </li>
           <li>
-            <a href="https://quaker.vercel.app">Quaker</a>
+            <a title="Goto Quaker" href="https://quaker.vercel.app" className="hover:text-gray-600">
+              Quaker
+            </a>
           </li>
           <li>
-            <a href="https://lcl-paste.vercel.app">LCL Paste</a>
+            <a
+              title="Goto LCL Paste"
+              href="https://lcl-paste.vercel.app"
+              className="hover:text-gray-600"
+            >
+              LCL Paste
+            </a>
           </li>
         </ul>
       </footer>
