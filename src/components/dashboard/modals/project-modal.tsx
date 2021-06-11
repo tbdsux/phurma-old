@@ -1,4 +1,4 @@
-import { MutableRefObject, ReactNode } from 'react';
+import { MutableRefObject, ReactNode, useState } from 'react';
 import { Dialog } from '@headlessui/react';
 import { BaseModal } from './base';
 
@@ -27,9 +27,24 @@ export const ProjectModal = ({
   onClose,
   children
 }: ProjectModalProps) => {
+  const [ongoing, setOngoing] = useState(false);
+
+  const handlerWrapper = () => {
+    setOngoing(true);
+
+    fnHandler();
+  };
+
+  /* a wrapper to the close function (prevents unnecessary modal close in on-going operations) */
+  const closeWrapper = () => {
+    if (!ongoing) {
+      onClose();
+    }
+  };
+
   return (
     <div>
-      <BaseModal onClose={onClose} open={open} focusRef={initialFocus} width="max-w-2xl">
+      <BaseModal onClose={closeWrapper} open={open} focusRef={initialFocus} width="max-w-2xl">
         <Dialog.Title
           as="h3"
           className="underline text-lg font-black tracking-wide leading-6 text-gray-700"
@@ -58,7 +73,7 @@ export const ProjectModal = ({
             ref={fnButtonRef}
             type="button"
             className="focus:outline-none border-2 focus:border-purple-600 border-purple-200 py-2 px-6 bg-purple-400 hover:bg-purple-500 text-white rounded-lg disabled:hover:bg-purple-400"
-            onClick={fnHandler}
+            onClick={handlerWrapper}
           >
             {fnButtonText}
           </button>

@@ -1,5 +1,6 @@
+import { useRef, useState } from 'react';
 import { Dialog } from '@headlessui/react';
-import { useRef } from 'react';
+
 import { BaseModal } from './base';
 
 type RemoveModalProps = {
@@ -11,18 +12,32 @@ type RemoveModalProps = {
 };
 
 export const RemoveModal = ({ open, onClose, title, info, fnHandler }: RemoveModalProps) => {
+  const [ongoing, setOngoing] = useState(false);
+
   const btnCancelRef = useRef<HTMLButtonElement>(null);
   const btnRemoveRef = useRef<HTMLButtonElement>(null);
 
   const handlerWrapper = () => {
+    setOngoing(true);
     btnRemoveRef.current.innerHTML = 'Removing...';
     btnRemoveRef.current.disabled = true;
+
+    // disable cancel
+    btnCancelRef.current.disabled = true;
+    btnCancelRef.current.innerText = 'Cannot Cancel';
 
     fnHandler();
   };
 
+  /* a wrapper to the close function (prevents unnecessary modal close in on-going operations) */
+  const closeWrapper = () => {
+    if (!ongoing) {
+      onClose();
+    }
+  };
+
   return (
-    <BaseModal open={open} onClose={onClose} focusRef={btnCancelRef} width="max-w-xl">
+    <BaseModal open={open} onClose={closeWrapper} focusRef={btnCancelRef} width="max-w-xl">
       <Dialog.Title
         as="h3"
         className="underline text-lg font-black tracking-wide leading-6 text-gray-700"

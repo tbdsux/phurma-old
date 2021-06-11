@@ -1,5 +1,5 @@
 import { Dialog } from '@headlessui/react';
-import { MutableRefObject, ReactNode } from 'react';
+import { MutableRefObject, ReactNode, useState } from 'react';
 import { BaseModal } from './base';
 
 type FormsModalProps = {
@@ -31,9 +31,24 @@ export const FormsModal = ({
   dialogTitle,
   children
 }: FormsModalProps) => {
+  const [ongoing, setOngoing] = useState(false);
+
+  const handlerWrapper = () => {
+    setOngoing(true);
+
+    fnHandler();
+  };
+
+  /* a wrapper to the close function (prevents unnecessary modal close in on-going operations) */
+  const closeWrapper = () => {
+    if (!ongoing) {
+      onClose();
+    }
+  };
+
   return (
     <div>
-      <BaseModal open={open} onClose={onClose} focusRef={initialFocus} width="max-w-xl">
+      <BaseModal open={open} onClose={closeWrapper} focusRef={initialFocus} width="max-w-xl">
         <Dialog.Title
           as="h3"
           className="underline text-lg font-black tracking-wide leading-6 text-gray-700"
@@ -77,14 +92,14 @@ export const FormsModal = ({
               ref={fnButtonRef}
               type="button"
               className="focus:outline-none border-2 focus:border-purple-600 border-purple-200 py-2 px-6 bg-purple-400 hover:bg-purple-500 text-white rounded-lg disabled:hover:bg-purple-400"
-              onClick={fnHandler}
+              onClick={handlerWrapper}
             >
               {fnButtonText}
             </button>
             <button
               type="button"
               className="ml-2 focus:outline-none border-2 focus:border-gray-600 border-gray-200 py-2 px-6 bg-gray-400 hover:bg-gray-500 text-white rounded-lg"
-              onClick={onClose}
+              onClick={closeWrapper}
             >
               Cancel
             </button>
