@@ -9,6 +9,7 @@ import { joinString } from '@lib/utils';
 import { PageCrumbs } from '@components/dashboard/page-crumbs';
 import { ListForms } from '@modules/forms/list-forms';
 import { ErrorPageComponent } from '@components/error-page';
+import { LoadingComponent } from '@components/loading';
 
 const ProjectPage = withPageAuthRequired(() => {
   const router = useRouter();
@@ -18,6 +19,9 @@ const ProjectPage = withPageAuthRequired(() => {
   const { data: project } = useSWR<QueryManager<ProjectByIdProps>>(
     projectid && `/api/user/projects/fetch/${projectid}`
   );
+
+  // show loading if there is no data yet
+  if (!project) return <LoadingComponent message="Loading project..." />;
 
   if (project?.error) {
     return <ErrorPageComponent code={project.code} title={project.description} />;

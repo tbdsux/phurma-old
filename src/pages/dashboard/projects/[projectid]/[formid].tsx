@@ -13,6 +13,7 @@ import { PageCrumbs } from '@components/dashboard/page-crumbs';
 import { MapResponse } from '@modules/responses/map-response';
 import { SelectedResponse } from '@modules/responses/selected';
 import { ErrorPageComponent } from '@components/error-page';
+import { LoadingComponent } from '@components/loading';
 
 // view mode for submissions
 const viewSubmissionsMode = {
@@ -32,6 +33,9 @@ const FormPage = withPageAuthRequired(() => {
   const { data: form } = useSWR<QueryManager<FormPropsById>>(
     formid && `/api/user/projects/forms/${projectid}/${formid}`
   );
+
+  // show loading if no data yet
+  if (!form) return <LoadingComponent message="Loading form..." />;
 
   if (form?.error) {
     return <ErrorPageComponent code={form.code} title={form.description} />;
