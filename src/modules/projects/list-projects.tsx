@@ -34,7 +34,7 @@ export const ListProjects = ({ projects: initialProjects }: ListProjectProps) =>
               title={`Select project '${project.data.name}'`}
               className="my-2 rounded-lg border group border-purple-300 hover:bg-purple-400 px-6 py-4"
             >
-              <strong className="text-lg tracking-wide font-bold text-gray-700 group-hover:text-white">
+              <strong className="text-xl tracking-wide font-extrabold text-gray-600 group-hover:text-white">
                 {project.data.name}
               </strong>
               <p className="mt-2 text-right text-gray-400 tracking-wide font-medium group-hover:text-gray-100">
