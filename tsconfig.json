@@ -16,6 +16,7 @@
     "baseUrl": "./src",
     "paths": {
       "@components/*": ["components/*"],
+      "@modules/*": ["modules/*"],
       "@lib/*": ["lib/*"],
       "@utils/*": ["utils/*"],
       "@fauna/*": ["fauna/*"],

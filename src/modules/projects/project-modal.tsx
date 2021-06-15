@@ -1,6 +1,8 @@
 import { MutableRefObject, ReactNode, useState } from 'react';
+
 import { Dialog } from '@headlessui/react';
-import { BaseModal } from './base';
+
+import { BaseModal } from '@components/modals/base';
 
 type ProjectModalProps = {
   open: boolean;

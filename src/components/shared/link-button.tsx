@@ -2,7 +2,7 @@
     Just a Link wrapper button.
 */
 
-import { HTMLAttributes, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import Link from 'next/link';
 
 type LinkButtonProps = {

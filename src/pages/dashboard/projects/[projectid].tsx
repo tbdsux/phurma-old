@@ -4,10 +4,10 @@ import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import { QueryManager } from '~types/query';
 import { ProjectByIdProps } from '~types/projects';
-import { ProjectHeader } from '@components/dashboard/project-header';
+import { ProjectHeader } from '@modules/projects/project-header';
 import { joinString } from '@lib/utils';
 import { PageCrumbs } from '@components/dashboard/page-crumbs';
-import { ListForms } from '@components/dashboard/list-forms';
+import { ListForms } from '@modules/forms/list-forms';
 import { ErrorPageComponent } from '@components/error-page';
 
 const ProjectPage = withPageAuthRequired(() => {

@@ -1,6 +1,8 @@
-import { Dialog } from '@headlessui/react';
 import { MutableRefObject, ReactNode, useState } from 'react';
-import { BaseModal } from './base';
+
+import { Dialog } from '@headlessui/react';
+
+import { BaseModal } from '@components/modals/base';
 
 type FormsModalProps = {
   onClose: () => void;

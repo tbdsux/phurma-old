@@ -2,7 +2,7 @@ import { FaunaResponseProps } from '@ootiq/just-faunautils';
 import { Dispatch, SetStateAction } from 'react';
 import { ResponseProps } from '~types/response';
 
-import { RemoveResponse } from '../modals/remove-response';
+import { RemoveResponse } from '@modules/responses/remove-response';
 
 type SelectedResponseProps = {
   projectId: string;

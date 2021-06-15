@@ -1,5 +1,5 @@
 import { GetServerSideProps, NextPage } from 'next';
-import { ListProjects } from '@components/dashboard/list-projects';
+import { ListProjects } from '@modules/projects/list-projects';
 import { DashLayout } from '@layouts/DashLayout';
 import { ListProjectProps } from '~types/projects';
 import { getUserProjects } from '@functions/getProject';

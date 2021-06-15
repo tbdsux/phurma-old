@@ -1,8 +1,9 @@
-import Router from 'next//router';
 import { useState } from 'react';
+import Router from 'next/router';
+
 import { mutate } from 'swr';
 
-import { RemoveModal } from './remove-modal';
+import { RemoveModal } from '@components/modals/remove-modal';
 
 type RemoveFormProps = {
   formname: string;

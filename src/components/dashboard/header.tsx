@@ -1,6 +1,8 @@
-import Link from 'next/link';
 import React from 'react';
-import { NewProjectModal } from './modals/new-project';
+
+import Link from 'next/link';
+
+import { NewProjectModal } from '@modules/projects/new-project';
 import { AnchorTextLink, TextLink } from './textlink';
 
 export const DashHeader = () => {

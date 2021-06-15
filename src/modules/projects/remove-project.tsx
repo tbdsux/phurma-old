@@ -1,9 +1,9 @@
 import { useState } from 'react';
-
 import Router from 'next/router';
 
-import { RemoveModal } from './remove-modal';
 import { mutate } from 'swr';
+
+import { RemoveModal } from '@components/modals/remove-modal';
 
 type RemoveProjectProps = {
   projectRefId: string;

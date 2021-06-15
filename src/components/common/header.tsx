@@ -1,4 +1,4 @@
-import { Container } from '@components/Container';
+import { Container } from '@components/container';
 import Link from 'next/link';
 
 export const Header = () => {

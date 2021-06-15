@@ -1,6 +1,6 @@
-import { NewFormModal } from './modals/new-form';
-import { RemoveProject } from './modals/remove-project';
-import { RenameProjectModal } from './modals/rename-project';
+import { NewFormModal } from '@modules/forms/new-form';
+import { RemoveProject } from '@modules/projects/remove-project';
+import { RenameProjectModal } from './rename-project';
 
 type ProjectHeaderProps = {
   name: string;

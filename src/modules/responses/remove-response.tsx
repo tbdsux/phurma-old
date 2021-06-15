@@ -1,8 +1,9 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 
 import { mutate } from 'swr';
-import { RemoveModal } from './remove-modal';
 import { FaunaResponseProps } from '@ootiq/just-faunautils';
+
+import { RemoveModal } from '@components/modals/remove-modal';
 import { ResponseProps } from '~types/response';
 
 type RemoveResponseProps = {

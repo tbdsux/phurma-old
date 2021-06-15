@@ -1,9 +1,11 @@
 import Link from 'next/link';
 
 import { FaunaResponseProps } from '@ootiq/just-faunautils';
+
+import { RenameFormModal } from '@modules/forms/rename-form';
+import { RemoveForm } from '@modules/forms/remove-form';
+
 import { FormProps } from '~types/forms';
-import { RenameFormModal } from './modals/rename-form';
-import { RemoveForm } from './modals/remove-form';
 
 type ListFormsProps = {
   projectid: string;

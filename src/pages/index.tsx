@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import Image from 'next/image';
 
 import { PageLayout } from '@layouts/PageLayout';
-import { Container } from '@components/Container';
+import { Container } from '@components/container';
 import { Color } from '@components/shared/colorizer';
 
 const Index: NextPage = () => {

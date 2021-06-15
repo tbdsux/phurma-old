@@ -1,5 +1,5 @@
 import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0';
-import { UserStats } from '@components/dashboard/user-stats';
+import { UserStats } from '@modules/user/user-stats';
 import { DashLayout } from '@layouts/DashLayout';
 
 const Dashboard = withPageAuthRequired(() => {

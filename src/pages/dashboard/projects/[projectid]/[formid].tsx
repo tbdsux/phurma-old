@@ -10,8 +10,8 @@ import { FormPropsById } from '~types/forms';
 import { ResponseProps } from '~types/response';
 import { FaunaResponseProps } from '@ootiq/just-faunautils';
 import { PageCrumbs } from '@components/dashboard/page-crumbs';
-import { MapResponse } from '@components/dashboard/responses/map-response';
-import { SelectedResponse } from '@components/dashboard/responses/selected';
+import { MapResponse } from '@modules/responses/map-response';
+import { SelectedResponse } from '@modules/responses/selected';
 import { ErrorPageComponent } from '@components/error-page';
 
 // view mode for submissions
