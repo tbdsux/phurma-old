@@ -26,12 +26,12 @@
     "faunadb": "^4.3.0",
     "joi": "^17.4.0",
     "nanoid": "^3.1.23",
-    "next": "^11.0.0",
+    "next": "^11.0.1",
     "postcss": "^8.3.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "swr": "^0.5.6",
-    "tailwindcss": "^2.2.0"
+    "tailwindcss": "^2.2.4"
   },
   "devDependencies": {
     "@ootiq/tailwind-blandcolors": "^0.0.2",
