@@ -1,0 +1,7 @@
+{
+  "extends": ["eslint:recommended", "next", "next/core-web-vitals", "prettier"],
+  "rules": {
+    "no-undef": "off",
+    "no-console": "warn"
+  }
+}
