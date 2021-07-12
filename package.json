@@ -12,7 +12,7 @@
     "test:cli": "cypress run",
     "test:ci": "start-server-and-test dev http://localhost:3000 test:cli",
     "type-check": "tsc --project tsconfig.json --pretty --noEmit",
-    "lint": "next lint --dir src",
+    "lint": "next lint --fix --dir src",
     "postinstall": "husky install"
   },
   "dependencies": {
