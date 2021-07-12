@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 
 // methodHandler simple middleware that handles method not allowed responses

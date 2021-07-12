@@ -32,7 +32,7 @@ const Index: NextPage = () => {
       <hr />
 
       <section className="py-16 text-center">
-        <Container size="w-5/6">
+        <Container size="w-4/5">
           <h3 className="text-3xl text-indigo-500 tracking-wide leading-loose font-black">
             How does it work?
           </h3>
@@ -41,7 +41,7 @@ const Index: NextPage = () => {
               <span className="absolute -top-3 -left-2 p-3 text-lg font-bold bg-indigo-500 text-white rounded-xl">
                 1
               </span>
-              <Image src="/show/1.svg" width={300} height={300} />
+              <Image src="/show/1.svg" width={300} height={300} alt="Create a Project" />
               <hr />
               <h4 className="py-4 text-indigo-600">Create a Project</h4>
             </li>
@@ -49,7 +49,7 @@ const Index: NextPage = () => {
               <span className="absolute -top-3 -left-2 p-3 text-lg font-bold bg-indigo-500 text-white rounded-xl">
                 2
               </span>
-              <Image src="/show/2.svg" width={300} height={300} />
+              <Image src="/show/2.svg" width={300} height={300} alt="Use our API in your forms" />
               <hr />
               <h4 className="py-4 text-indigo-600">Use our API in your forms</h4>
             </li>
@@ -57,7 +57,7 @@ const Index: NextPage = () => {
               <span className="absolute -top-3 -left-2 p-3 text-lg font-bold bg-indigo-500 text-white rounded-xl">
                 3
               </span>
-              <Image src="/show/3.svg" width={300} height={300} />
+              <Image src="/show/3.svg" width={300} height={300} alt="Wait for responses" />
               <hr />
               <h4 className="py-4 text-indigo-600">Wait for responses</h4>
             </li>

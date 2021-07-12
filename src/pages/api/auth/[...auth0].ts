@@ -14,7 +14,7 @@ const afterCallback = async (req: NextApiRequest, res: NextApiResponse, session,
 };
 */
 
-const afterCallback = async (req, res, session, state) => {
+const afterCallback = async (req, res, session) => {
   return await CreateUserIfNotExists(session.user).then(async () => {
     const token = await ObtainUserToken(session.user.sub);
 
